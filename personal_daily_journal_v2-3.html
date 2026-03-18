@@ -1,0 +1,2669 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sanket's Daily Journal</title>
+<link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@100;200;300;400;600;700&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   CSS VARIABLES — DUAL THEME
+   ============================================================ */
+:root {
+  --radius: 14px;
+  --radius-lg: 22px;
+  --radius-xl: 32px;
+  --teal: #0ea5e9;
+  --teal-light: #38bdf8;
+  --teal-dark: #0284c7;
+  --cyan: #22d3ee;
+  --mint: #2dd4bf;
+  --grad: linear-gradient(135deg, #0ea5e9 0%, #22d3ee 50%, #2dd4bf 100%);
+  --grad-title: linear-gradient(90deg, #0ea5e9, #22d3ee, #2dd4bf, #0ea5e9);
+  --green: #10b981;
+  --red: #f43f5e;
+  --yellow: #fbbf24;
+  --orange: #fb923c;
+  --font: 'Josefin Sans', sans-serif;
+  --mono: 'DM Mono', monospace;
+  --transition: all 0.25s cubic-bezier(0.4,0,0.2,1);
+}
+
+/* DARK THEME */
+[data-theme="dark"] {
+  --bg: #080c12;
+  --bg2: #0d1117;
+  --surface: #111827;
+  --surface2: #1a2332;
+  --surface3: #1f2d42;
+  --border: rgba(14,165,233,0.12);
+  --border2: rgba(255,255,255,0.06);
+  --text: #f0f6ff;
+  --text2: #94a3b8;
+  --text3: #475569;
+  --shadow: 0 4px 24px rgba(0,0,0,0.4);
+  --shadow-teal: 0 0 30px rgba(14,165,233,0.12);
+  --input-bg: #0d1117;
+  --nav-bg: rgba(8,12,18,0.92);
+}
+
+/* LIGHT THEME */
+[data-theme="light"] {
+  --bg: #f0f7ff;
+  --bg2: #e8f4fd;
+  --surface: #ffffff;
+  --surface2: #f8fbff;
+  --surface3: #eaf5ff;
+  --border: rgba(14,165,233,0.15);
+  --border2: rgba(14,165,233,0.08);
+  --text: #0f172a;
+  --text2: #475569;
+  --text3: #94a3b8;
+  --shadow: 0 4px 24px rgba(14,165,233,0.08);
+  --shadow-teal: 0 0 30px rgba(14,165,233,0.08);
+  --input-bg: #f0f7ff;
+  --nav-bg: rgba(240,247,255,0.92);
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font);
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  transition: background 0.3s, color 0.3s;
+  font-weight: 300;
+  letter-spacing: 0.35px;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ============================================================
+   LOGIN PAGE
+   ============================================================ */
+#loginPage {
+  position: fixed; inset: 0;
+  background: var(--bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  overflow: hidden;
+}
+
+.login-bg-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.15;
+  pointer-events: none;
+}
+.login-bg-orb.o1 { width:400px; height:400px; background:#0ea5e9; top:-100px; left:-100px; }
+.login-bg-orb.o2 { width:300px; height:300px; background:#22d3ee; bottom:-80px; right:-80px; }
+.login-bg-orb.o3 { width:200px; height:200px; background:#2dd4bf; top:40%; left:60%; }
+
+.login-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xl);
+  padding: 52px 48px;
+  width: 420px;
+  max-width: 95vw;
+  position: relative;
+  box-shadow: var(--shadow), var(--shadow-teal);
+  animation: loginReveal 0.6s cubic-bezier(0.34,1.56,0.64,1) both;
+}
+
+@keyframes loginReveal {
+  from { opacity:0; transform: translateY(24px) scale(0.97); }
+  to { opacity:1; transform: translateY(0) scale(1); }
+}
+
+.login-logo {
+  text-align: center;
+  margin-bottom: 36px;
+}
+
+.login-logo-mark {
+  width: 56px; height: 56px;
+  background: var(--grad);
+  border-radius: 16px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.6rem;
+  margin-bottom: 16px;
+  box-shadow: 0 8px 24px rgba(14,165,233,0.3);
+}
+
+.login-title {
+  font-size: 1.3rem;
+  font-weight: 200;
+  letter-spacing: 6px;
+  text-transform: uppercase;
+  color: var(--text);
+  margin-bottom: 4px;
+}
+
+.login-subtitle {
+  font-size: 0.72rem;
+  color: var(--text3);
+  font-weight: 300;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.login-field {
+  margin-bottom: 16px;
+}
+
+.login-field label {
+  display: block;
+  font-size: 0.62rem;
+  font-weight: 400;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: var(--text3);
+  margin-bottom: 8px;
+}
+
+.login-input-wrap {
+  position: relative;
+}
+
+.login-input {
+  width: 100%;
+  background: var(--input-bg);
+  border: 1px solid var(--border2);
+  border-radius: 12px;
+  padding: 13px 18px;
+  font-family: var(--font);
+  font-size: 0.9rem;
+  color: var(--text);
+  transition: var(--transition);
+  outline: none;
+}
+
+.login-input:focus {
+  border-color: var(--teal);
+  box-shadow: 0 0 0 3px rgba(14,165,233,0.12);
+}
+
+.login-btn {
+  width: 100%;
+  background: var(--grad);
+  border: none;
+  border-radius: 12px;
+  padding: 14px;
+  font-family: var(--font);
+  font-size: 0.72rem;
+  font-weight: 400;
+  color: #fff;
+  cursor: pointer;
+  margin-top: 8px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  transition: var(--transition);
+  box-shadow: 0 4px 16px rgba(14,165,233,0.35);
+}
+
+.login-btn:hover { transform: translateY(-1px); box-shadow: 0 8px 24px rgba(14,165,233,0.45); }
+.login-btn:active { transform: translateY(0); }
+
+.login-error {
+  background: rgba(244,63,94,0.1);
+  border: 1px solid rgba(244,63,94,0.25);
+  color: #f43f5e;
+  border-radius: 10px;
+  padding: 10px 14px;
+  font-size: 0.8rem;
+  margin-top: 12px;
+  display: none;
+  text-align: center;
+}
+
+/* ============================================================
+   APP SHELL
+   ============================================================ */
+#appShell { display: none; }
+
+/* TOPBAR */
+.topbar {
+  position: sticky; top: 0; z-index: 100;
+  background: var(--nav-bg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+  padding: 0 28px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 60px;
+}
+
+.topbar-logo {
+  font-size: 1.1rem;
+  font-weight: 400;
+  letter-spacing: 6px;
+  text-transform: uppercase;
+  background: var(--grad-title);
+  background-size: 300%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: gradientShift 4s linear infinite;
+}
+
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.topbar-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.topbar-date {
+  font-size: 0.75rem;
+  color: var(--text3);
+  font-family: var(--mono);
+  font-weight: 400;
+}
+
+.theme-toggle {
+  width: 40px; height: 22px;
+  background: var(--surface3);
+  border-radius: 11px;
+  border: 1px solid var(--border);
+  cursor: pointer;
+  position: relative;
+  transition: var(--transition);
+}
+
+.theme-toggle::after {
+  content: '';
+  position: absolute;
+  width: 16px; height: 16px;
+  border-radius: 50%;
+  background: var(--grad);
+  top: 2px; left: 2px;
+  transition: var(--transition);
+  box-shadow: 0 2px 6px rgba(14,165,233,0.4);
+}
+
+[data-theme="light"] .theme-toggle::after { transform: translateX(18px); }
+
+.topbar-btn {
+  padding: 6px 14px;
+  border-radius: 8px;
+  font-family: var(--font);
+  font-size: 0.75rem;
+  font-weight: 600;
+  cursor: pointer;
+  border: 1px solid var(--border);
+  background: var(--surface2);
+  color: var(--text2);
+  transition: var(--transition);
+}
+.topbar-btn:hover { background: var(--surface3); color: var(--text); }
+
+/* QUOTE BAR */
+.quote-bar {
+  padding: 11px 28px;
+  background: linear-gradient(90deg, rgba(14,165,233,0.06) 0%, rgba(34,211,238,0.06) 50%, rgba(45,212,191,0.06) 100%);
+  border-bottom: 1px solid var(--border);
+  text-align: center;
+  font-size: 0.8rem;
+  font-weight: 400;
+  font-style: italic;
+  color: var(--teal-light);
+  letter-spacing: 0.3px;
+}
+.quote-bar strong { font-weight: 700; font-style: normal; }
+
+/* NAV TABS */
+.nav-tabs {
+  display: flex;
+  padding: 0 28px;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  overflow-x: auto;
+  scrollbar-width: none;
+  gap: 0;
+}
+.nav-tabs::-webkit-scrollbar { display: none; }
+
+.nav-tab {
+  display: flex; align-items: center; gap: 7px;
+  padding: 14px 18px;
+  font-size: 0.72rem;
+  font-weight: 400;
+  color: var(--text3);
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  white-space: nowrap;
+  transition: var(--transition);
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  position: relative;
+  top: 1px;
+}
+.nav-tab:hover { color: var(--text2); }
+.nav-tab.active { color: var(--teal); border-bottom-color: var(--teal); }
+.nav-tab .tab-icon { font-size: 0.95rem; }
+
+/* MAIN */
+.main { padding: 28px; max-width: 1280px; margin: 0 auto; }
+.page { display: none; animation: fadeUp 0.3s ease both; }
+.page.active { display: block; }
+
+@keyframes fadeUp {
+  from { opacity:0; transform: translateY(10px); }
+  to { opacity:1; transform: translateY(0); }
+}
+
+/* ============================================================
+   COMPONENTS
+   ============================================================ */
+
+/* PAGE HEADER */
+.ph {
+  display: flex; align-items: flex-start; justify-content: space-between;
+  flex-wrap: wrap; gap: 14px;
+  margin-bottom: 26px;
+}
+.ph-title {
+  font-size: 2.6rem;
+  font-weight: 400;
+  letter-spacing: 6px;
+  text-transform: uppercase;
+  line-height: 1.15;
+  color: var(--text);
+}
+.ph-title .grad {
+  background: var(--grad-title);
+  background-size: 300%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: gradientShift 4s linear infinite;
+}
+.ph-sub {
+  font-size: 0.8rem;
+  color: var(--text3);
+  margin-top: 4px;
+  font-weight: 400;
+}
+
+/* CARD */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 22px;
+  margin-bottom: 18px;
+  box-shadow: var(--shadow);
+  transition: border-color 0.2s;
+}
+.card:hover { border-color: rgba(14,165,233,0.2); }
+
+.card-label {
+  font-size: 0.72rem;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--text3);
+  margin-bottom: 18px;
+  display: flex; align-items: center; gap: 8px;
+}
+.card-label::before {
+  content:'';
+  width: 3px; height: 13px;
+  background: var(--grad);
+  border-radius: 2px;
+}
+
+/* GRIDS */
+.g2 { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+.g3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 18px; }
+
+@media (max-width: 860px) {
+  .g2, .g3 { grid-template-columns: 1fr; }
+  .main { padding: 16px; }
+  .topbar { padding: 0 16px; }
+  .nav-tabs { padding: 0 16px; }
+}
+
+/* BUTTONS */
+.btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 9px 20px;
+  border-radius: 10px;
+  font-family: var(--font);
+  font-size: 0.72rem;
+  font-weight: 400;
+  cursor: pointer;
+  border: none;
+  transition: var(--transition);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+.btn-primary {
+  background: var(--grad);
+  color: #fff;
+  box-shadow: 0 4px 12px rgba(14,165,233,0.3);
+}
+.btn-primary:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(14,165,233,0.4); }
+.btn-ghost {
+  background: var(--surface2);
+  color: var(--text2);
+  border: 1px solid var(--border);
+}
+.btn-ghost:hover { background: var(--surface3); color: var(--text); }
+.btn-danger {
+  background: rgba(244,63,94,0.1);
+  color: var(--red);
+  border: 1px solid rgba(244,63,94,0.2);
+}
+.btn-danger:hover { background: rgba(244,63,94,0.2); }
+.btn-sm { padding: 5px 12px; font-size: 0.72rem; border-radius: 7px; }
+
+/* INPUTS */
+input[type="text"], input[type="number"], input[type="date"], input[type="password"],
+textarea, select {
+  width: 100%;
+  background: var(--input-bg);
+  border: 1px solid var(--border2);
+  border-radius: 10px;
+  color: var(--text);
+  padding: 10px 14px;
+  font-family: var(--font);
+  font-size: 0.85rem;
+  font-weight: 400;
+  transition: var(--transition);
+  outline: none;
+}
+input:focus, textarea:focus, select:focus {
+  border-color: var(--teal);
+  box-shadow: 0 0 0 3px rgba(14,165,233,0.1);
+}
+textarea { resize: vertical; min-height: 80px; }
+.form-group { margin-bottom: 14px; }
+.form-label {
+  display: block;
+  font-size: 0.72rem;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--text3);
+  margin-bottom: 6px;
+}
+
+/* CHECKLIST */
+.check-item {
+  display: flex; align-items: center; gap: 12px;
+  padding: 11px 14px;
+  background: var(--surface2);
+  border: 1px solid var(--border2);
+  border-radius: 11px;
+  margin-bottom: 8px;
+  transition: var(--transition);
+  cursor: default;
+}
+.check-item:hover { border-color: var(--border); }
+.check-item.done { background: rgba(14,165,233,0.05); border-color: rgba(14,165,233,0.2); }
+.check-box {
+  width: 22px; height: 22px;
+  border-radius: 7px;
+  border: 1.5px solid var(--border);
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: var(--transition);
+  font-size: 11px;
+  color: #fff;
+}
+.check-item.done .check-box {
+  background: var(--grad);
+  border-color: var(--teal);
+  box-shadow: 0 2px 8px rgba(14,165,233,0.3);
+}
+.check-label { flex: 1; font-size: 0.87rem; font-weight: 500; }
+.check-item.done .check-label { text-decoration: line-through; color: var(--text3); }
+
+/* CALENDAR */
+.cal-nav {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 16px;
+}
+.cal-nav-title { font-size: 0.82rem; font-weight: 400; letter-spacing: 3px; text-transform: uppercase; color: var(--text); }
+.cal-nav-btn {
+  width: 28px; height: 28px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: var(--surface2);
+  color: var(--text2);
+  cursor: pointer;
+  font-size: 0.9rem;
+  display: flex; align-items: center; justify-content: center;
+  transition: var(--transition);
+}
+.cal-nav-btn:hover { background: var(--surface3); color: var(--text); border-color: var(--teal); }
+
+.mini-cal { display: grid; grid-template-columns: repeat(7, 1fr); gap: 3px; }
+.day-hd {
+  text-align: center; font-size: 0.6rem; font-weight: 400;
+  color: var(--text3); padding: 5px 2px;
+  text-transform: uppercase; letter-spacing: 1.5px;
+}
+.day-cell {
+  aspect-ratio: 1;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  border-radius: 8px;
+  font-size: 0.75rem; font-weight: 500;
+  cursor: pointer;
+  transition: var(--transition);
+  gap: 2px;
+  position: relative;
+}
+.day-cell:hover:not(.empty) { background: var(--surface3); }
+.day-cell.today { 
+  border: 1.5px solid var(--teal); 
+  color: var(--teal); 
+  font-weight: 700;
+  box-shadow: 0 0 8px rgba(14,165,233,0.2);
+}
+.day-cell.today .day-badge {
+  background: rgba(0,0,0,0.75) !important;
+  color: #fff !important;
+}
+.day-cell.today.selected { 
+  background: linear-gradient(135deg,#0ea5e9,#22d3ee); 
+  color: #fff; 
+  border-color: var(--teal);
+  box-shadow: 0 3px 12px rgba(14,165,233,0.5);
+}
+.day-cell.today .badge-green { background: rgba(0,0,0,0.75) !important; color: #fff !important; }
+.day-cell.today .badge-yellow { background: rgba(0,0,0,0.75) !important; color: #fff !important; }
+.day-cell.today .badge-red { background: rgba(0,0,0,0.75) !important; color: #fff !important; }
+.day-cell.empty { cursor: default; }
+.day-dot { width: 4px; height: 4px; border-radius: 50%; background: var(--teal); }
+.day-badge {
+  font-size: 0.58rem; font-weight: 700;
+  padding: 1px 4px; border-radius: 4px;
+  line-height: 1.3;
+}
+.badge-green { background: rgba(16,185,129,0.15); color: var(--green); }
+.badge-yellow { background: rgba(251,191,36,0.15); color: var(--yellow); }
+.badge-red { background: rgba(244,63,94,0.15); color: var(--red); }
+
+/* PROGRESS */
+.prog-row {
+  display: flex; justify-content: space-between;
+  font-size: 0.75rem; color: var(--text3);
+  margin-bottom: 6px;
+}
+.prog-row span:last-child { font-weight: 700; }
+.prog-bar {
+  height: 5px; background: var(--surface3); border-radius: 3px; overflow: hidden;
+}
+.prog-fill {
+  height: 100%; border-radius: 3px;
+  background: var(--grad);
+  transition: width 0.5s cubic-bezier(0.4,0,0.2,1);
+}
+
+/* TAGS */
+.tag {
+  display: inline-flex; align-items: center; gap: 4px;
+  padding: 3px 10px; border-radius: 20px;
+  font-size: 0.7rem; font-weight: 700;
+}
+.tag-teal { background: rgba(14,165,233,0.1); color: var(--teal-light); }
+.tag-green { background: rgba(16,185,129,0.1); color: var(--green); }
+.tag-red { background: rgba(244,63,94,0.1); color: var(--red); }
+.tag-yellow { background: rgba(251,191,36,0.1); color: var(--yellow); }
+
+/* STAT CARD */
+.stat-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 20px;
+  transition: var(--transition);
+}
+.stat-card:hover { border-color: rgba(14,165,233,0.25); transform: translateY(-1px); }
+.stat-val { font-size: 2.1rem; font-weight: 900; letter-spacing: -1px; font-family: var(--mono); color: var(--teal); }
+.stat-lbl { font-size: 0.65rem; font-weight: 400; text-transform: uppercase; letter-spacing: 2px; color: var(--text3); margin-top: 2px; }
+.stat-sub { font-size: 0.72rem; color: var(--text3); margin-top: 6px; letter-spacing: 0.5px; }
+
+/* MODAL */
+.overlay {
+  display: none; position: fixed; inset: 0;
+  background: rgba(0,0,0,0.65);
+  backdrop-filter: blur(8px);
+  z-index: 500;
+  align-items: center; justify-content: center;
+}
+.overlay.open { display: flex; }
+.modal {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xl);
+  padding: 32px;
+  width: 92%;
+  max-width: 480px;
+  max-height: 90vh;
+  overflow-y: auto;
+  animation: fadeUp 0.25s ease both;
+  box-shadow: 0 24px 64px rgba(0,0,0,0.3), var(--shadow-teal);
+}
+.modal-title { font-size: 1rem; font-weight: 200; letter-spacing: 4px; text-transform: uppercase; margin-bottom: 22px; }
+.modal-actions { display: flex; gap: 10px; justify-content: flex-end; margin-top: 22px; }
+
+/* TABLE */
+table { width: 100%; border-collapse: collapse; font-size: 0.82rem; }
+th {
+  padding: 10px 14px; text-align: left;
+  background: var(--surface2); color: var(--text3);
+  font-size: 0.68rem; font-weight: 400; text-transform: uppercase;
+  letter-spacing: 2px; border-bottom: 1px solid var(--border);
+}
+td { padding: 10px 14px; border-bottom: 1px solid var(--border2); vertical-align: middle; }
+tr:hover td { background: rgba(14,165,233,0.03); }
+.pnl-p { color: var(--green); font-family: var(--mono); font-weight: 700; }
+.pnl-n { color: var(--red); font-family: var(--mono); font-weight: 700; }
+
+/* RED FLAG CHIPS */
+.rf-chip {
+  display: inline-flex; align-items: center; gap: 5px;
+  padding: 5px 12px;
+  border-radius: 8px;
+  font-size: 0.75rem; font-weight: 600;
+  cursor: pointer;
+  border: 1.5px solid transparent;
+  transition: var(--transition);
+  user-select: none;
+  margin: 3px;
+}
+.rf-chip.off { background: var(--surface2); color: var(--text3); border-color: var(--border2); }
+.rf-chip.on { background: rgba(244,63,94,0.12); color: var(--red); border-color: rgba(244,63,94,0.35); }
+
+/* FOOD SCROLL TABLE */
+.food-scroll-wrap {
+  overflow-x: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--teal) var(--surface2);
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+}
+.food-scroll-wrap::-webkit-scrollbar { height: 6px; }
+.food-scroll-wrap::-webkit-scrollbar-track { background: var(--surface2); }
+.food-scroll-wrap::-webkit-scrollbar-thumb { background: var(--teal); border-radius: 3px; }
+
+.food-table {
+  min-width: 920px;
+  border-collapse: collapse;
+  font-size: 0.82rem;
+}
+.food-table th {
+  padding: 12px 16px;
+  background: var(--surface2);
+  color: var(--text3);
+  font-size: 0.68rem;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  border-bottom: 1px solid var(--border);
+  white-space: nowrap;
+  position: sticky; top: 0; z-index: 2;
+}
+.food-table td {
+  padding: 10px 16px;
+  border-bottom: 1px solid var(--border2);
+  vertical-align: top;
+  min-width: 120px;
+}
+.food-table td.date-col {
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: var(--teal-light);
+  white-space: nowrap;
+  min-width: 100px;
+  position: sticky; left: 0;
+  background: var(--surface);
+  z-index: 1;
+  border-right: 1px solid var(--border);
+}
+.food-table tr:hover td { background: rgba(14,165,233,0.03); }
+.food-table tr:hover td.date-col { background: var(--surface2); }
+.food-table .flag-cell { font-size: 1rem; line-height: 1.4; min-width: 120px; }
+.food-table .red-row td.date-col { color: var(--red); }
+.food-table .red-row { background: rgba(244,63,94,0.03); }
+
+/* JOURNAL SECTIONS */
+.journal-section {
+  background: var(--surface2);
+  border: 1px solid var(--border2);
+  border-radius: var(--radius);
+  overflow: hidden;
+  margin-bottom: 12px;
+}
+.journal-section-head {
+  padding: 11px 16px;
+  font-size: 0.65rem;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 2.5px;
+  color: var(--teal-light);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border-bottom: 1px solid var(--border2);
+}
+.journal-section textarea {
+  border: none;
+  border-radius: 0;
+  background: transparent;
+  min-height: 70px;
+  padding: 12px 16px;
+  font-size: 0.88rem;
+  line-height: 1.65;
+}
+.journal-section textarea:focus { box-shadow: none; }
+
+.journal-entry-card {
+  background: var(--surface2);
+  border: 1px solid var(--border2);
+  border-radius: var(--radius);
+  padding: 16px;
+  margin-bottom: 10px;
+  cursor: pointer;
+  transition: var(--transition);
+}
+.journal-entry-card:hover { border-color: var(--teal); transform: translateX(2px); }
+.jec-date { font-family: var(--mono); font-size: 0.72rem; color: var(--teal); margin-bottom: 6px; display: flex; align-items: center; gap: 8px; }
+.jec-preview { font-size: 0.83rem; color: var(--text2); line-height: 1.5; }
+
+/* MOOD */
+.mood-btn {
+  font-size: 1.5rem;
+  padding: 6px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: var(--transition);
+  border: 2px solid transparent;
+}
+.mood-btn.selected { border-color: var(--teal); background: rgba(14,165,233,0.1); transform: scale(1.15); }
+
+/* EMPTY STATE */
+.empty {
+  text-align: center; padding: 48px 20px;
+  color: var(--text3);
+}
+.empty-icon { font-size: 2.8rem; margin-bottom: 12px; opacity: 0.5; }
+.empty p { font-size: 0.85rem; }
+
+/* IMPORTANT DATE COUNTDOWN */
+.cd-badge {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  padding: 4px 10px;
+  border-radius: 7px;
+  font-weight: 700;
+}
+
+/* SCROLLBAR GLOBAL */
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+
+/* HEATMAP */
+.heatmap { display: grid; grid-template-columns: repeat(30, 1fr); gap: 3px; }
+.hm-cell {
+  aspect-ratio: 1;
+  border-radius: 3px;
+  cursor: default;
+  transition: var(--transition);
+}
+.hm-cell:hover { transform: scale(1.3); }
+
+/* FAT LOSS TIPS */
+.tip-card {
+  background: var(--surface2);
+  border: 1px solid var(--border2);
+  border-radius: var(--radius);
+  padding: 14px 16px;
+  transition: var(--transition);
+}
+.tip-card:hover { border-color: var(--border); }
+.tip-icon { font-size: 1.4rem; margin-bottom: 6px; }
+.tip-title { font-size: 0.78rem; font-weight: 800; color: var(--teal-light); margin-bottom: 3px; }
+.tip-body { font-size: 0.73rem; color: var(--text3); line-height: 1.5; }
+
+/* MANAGE LIST */
+.manage-item {
+  display: flex; align-items: center; gap: 10px;
+  padding: 10px 14px;
+  background: var(--surface2);
+  border: 1px solid var(--border2);
+  border-radius: 10px;
+  margin-bottom: 7px;
+  transition: var(--transition);
+}
+.manage-item:hover { border-color: var(--border); }
+.manage-item-name { flex: 1; font-size: 0.85rem; font-weight: 500; }
+
+/* DIVIDER */
+hr { border: none; border-top: 1px solid var(--border); margin: 18px 0; }
+</style>
+</head>
+<body>
+
+<!-- ================================================
+     LOGIN PAGE
+     ================================================ -->
+<div id="loginPage">
+  <div class="login-bg-orb o1"></div>
+  <div class="login-bg-orb o2"></div>
+  <div class="login-bg-orb o3"></div>
+
+  <div class="login-card">
+    <div class="login-logo">
+      <div class="login-logo-mark">📓</div>
+      <div class="login-title">Daily Journal</div>
+      <div class="login-subtitle">Your private space — just for you.</div>
+    </div>
+
+    <div class="login-field">
+      <label>Username</label>
+      <div class="login-input-wrap">
+        <input class="login-input" type="text" id="loginUser" placeholder="Enter username" autocomplete="username">
+      </div>
+    </div>
+
+    <div class="login-field">
+      <label>Password</label>
+      <div class="login-input-wrap">
+        <input class="login-input" type="password" id="loginPass" placeholder="Enter password" autocomplete="current-password">
+      </div>
+    </div>
+
+    <button class="login-btn" onclick="doLogin()">Sign In →</button>
+    <div class="login-error" id="loginError">Incorrect username or password.</div>
+  </div>
+</div>
+
+<!-- ================================================
+     APP SHELL
+     ================================================ -->
+<div id="appShell">
+
+  <!-- TOPBAR -->
+  <div class="topbar">
+    <div class="topbar-logo">✦ Sanket's Daily Journal</div>
+    <div class="topbar-right">
+      <div class="topbar-date" id="topbarDate"></div>
+      <div class="theme-toggle" onclick="toggleTheme()" title="Toggle theme"></div>
+      <button class="topbar-btn" onclick="doLogout()">Sign out</button>
+    </div>
+  </div>
+
+  <!-- QUOTE BAR -->
+  <div class="quote-bar" id="quoteBar"></div>
+
+  <!-- NAV -->
+  <div class="nav-tabs">
+    <div class="nav-tab active" onclick="gotoPage('routine')" data-page="routine"><span class="tab-icon">✅</span> Routine</div>
+    <div class="nav-tab" onclick="gotoPage('food')" data-page="food"><span class="tab-icon">🍽️</span> Food</div>
+    <div class="nav-tab" onclick="gotoPage('gym')" data-page="gym"><span class="tab-icon">🏋️</span> Gym</div>
+    <div class="nav-tab" onclick="gotoPage('skincare')" data-page="skincare"><span class="tab-icon">✨</span> Skincare</div>
+    <div class="nav-tab" onclick="gotoPage('tradecal')" data-page="tradecal"><span class="tab-icon">📈</span> Trade Cal</div>
+    <div class="nav-tab" onclick="gotoPage('traderules')" data-page="traderules"><span class="tab-icon">📋</span> Trade Rules</div>
+    <div class="nav-tab" onclick="gotoPage('journal')" data-page="journal"><span class="tab-icon">📓</span> Journal</div>
+    <div class="nav-tab" onclick="gotoPage('dates')" data-page="dates"><span class="tab-icon">📅</span> Imp Dates</div>
+    <div class="nav-tab" onclick="gotoPage('consistency')" data-page="consistency"><span class="tab-icon">🎯</span> Consistency</div>
+  </div>
+
+  <!-- ============ MAIN ============ -->
+  <div class="main">
+
+    <!-- ==================== P1: ROUTINE ==================== -->
+    <div class="page active" id="page-routine">
+      <div class="ph">
+        <div>
+          <div class="ph-title"><span class="grad">Daily Routine</span></div>
+          <div class="ph-sub">Track habits, tick off your day, see patterns on calendar</div>
+        </div>
+        <button class="btn btn-primary" onclick="openM('mAddRoutine')">+ Add Habit</button>
+      </div>
+
+      <div class="g2">
+        <div class="card">
+          <div class="card-label">📅 Monthly Adherence</div>
+          <div class="cal-nav">
+            <button class="cal-nav-btn" onclick="chMonth('routine',-1)">‹</button>
+            <span class="cal-nav-title" id="routineCalTitle"></span>
+            <button class="cal-nav-btn" onclick="chMonth('routine',1)">›</button>
+          </div>
+          <div class="mini-cal" id="routineCal"></div>
+        </div>
+
+        <div class="card">
+          <div class="card-label">✅ <span id="routineDateLbl">Today's</span> Checklist</div>
+          <div id="routineCheckList"></div>
+          <div id="routineProg" style="margin-top:14px;"></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-label">⚙️ Manage Habits</div>
+        <div id="routineManage"></div>
+      </div>
+    </div>
+
+    <!-- ==================== P2: FOOD ==================== -->
+    <div class="page" id="page-food">
+      <div class="ph">
+        <div>
+          <div class="ph-title"><span class="grad">Food Intake</span></div>
+          <div class="ph-sub">Scrollable monthly log — screenshot the whole month at a glance</div>
+        </div>
+        <input type="date" id="foodDatePicker" style="width:auto;" onchange="openFoodDay()">
+      </div>
+
+      <!-- LOG FORM FOR SELECTED DAY -->
+      <div class="g2">
+        <div class="card">
+          <div class="card-label">🍽️ Log Day — <span id="foodLogDateLabel" style="color:var(--teal); font-style:normal;"></span></div>
+
+          <div class="form-group">
+            <label class="form-label">☀️ Breakfast</label>
+            <textarea id="fb-bf" placeholder="What did you eat for breakfast?" oninput="saveFoodDay()"></textarea>
+          </div>
+          <div class="form-group">
+            <label class="form-label">🌤️ Lunch</label>
+            <textarea id="fb-lu" placeholder="Lunch details..." oninput="saveFoodDay()"></textarea>
+          </div>
+          <div class="form-group">
+            <label class="form-label">🍎 Snacks</label>
+            <textarea id="fb-sn" placeholder="Snacks / between meals..." oninput="saveFoodDay()"></textarea>
+          </div>
+          <div class="form-group">
+            <label class="form-label">🌙 Dinner</label>
+            <textarea id="fb-di" placeholder="Dinner details..." oninput="saveFoodDay()"></textarea>
+          </div>
+          <div class="form-group">
+            <label class="form-label">💧 Water (glasses)</label>
+            <input type="number" id="fb-wa" placeholder="e.g. 8" min="0" max="20" oninput="saveFoodDay()">
+          </div>
+        </div>
+
+        <div>
+          <div class="card">
+            <div class="card-label">🚩 Red Day Flags</div>
+            <p style="font-size:0.78rem; color:var(--text3); margin-bottom:12px;">Tap to mark bad habits. Red days appear in the monthly table.</p>
+            <div id="rfChips">
+              <span class="rf-chip off" data-f="overeating" onclick="toggleRF(this)">😋 Overeating</span>
+              <span class="rf-chip off" data-f="oily" onclick="toggleRF(this)">🫙 Oily Food</span>
+              <span class="rf-chip off" data-f="sweets" onclick="toggleRF(this)">🍰 Sweets</span>
+              <span class="rf-chip off" data-f="sleepAfterDinner" onclick="toggleRF(this)">😴 Slept After Dinner</span>
+              <span class="rf-chip off" data-f="lateDinner" onclick="toggleRF(this)">🌙 Late Dinner</span>
+              <span class="rf-chip off" data-f="outside" onclick="toggleRF(this)">🥡 Outside Food</span>
+              <span class="rf-chip off" data-f="skipped" onclick="toggleRF(this)">⏭️ Skipped Meal</span>
+              <span class="rf-chip off" data-f="soda" onclick="toggleRF(this)">🥤 Soft Drinks</span>
+            </div>
+            <div id="rfStatus" style="margin-top:14px;"></div>
+          </div>
+
+          <div class="card">
+            <div class="card-label">📅 Food Calendar</div>
+            <div class="cal-nav">
+              <button class="cal-nav-btn" onclick="chMonth('food',-1)">‹</button>
+              <span class="cal-nav-title" id="foodCalTitle"></span>
+              <button class="cal-nav-btn" onclick="chMonth('food',1)">›</button>
+            </div>
+            <div class="mini-cal" id="foodCal"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SCROLLABLE MONTHLY TABLE -->
+      <div class="card">
+        <div class="card-label">📊 Monthly Scroll Table — <span id="foodTableMonthLabel" style="color:var(--teal); font-style:normal;"></span></div>
+        <p style="font-size:0.75rem; color:var(--text3); margin-bottom:14px;">Scroll horizontally to see all columns. Red = bad day flags.</p>
+        <div class="food-scroll-wrap">
+          <table class="food-table" id="foodScrollTable">
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Breakfast</th>
+                <th>Lunch</th>
+                <th>Snacks</th>
+                <th>Dinner</th>
+                <th>Water</th>
+                <th>Red Flags</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody id="foodTableBody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== P3: GYM ==================== -->
+    <div class="page" id="page-gym">
+      <div class="ph">
+        <div>
+          <div class="ph-title"><span class="grad">Gym Tracker</span></div>
+          <div class="ph-sub">Log sessions, cardio, weight lifting & body weight</div>
+        </div>
+        <input type="date" id="gymDatePicker" style="width:auto;" onchange="loadGym()">
+      </div>
+
+      <div class="g2">
+        <div class="card">
+          <div class="card-label">🏋️ Log Session — <span id="gymDateLabel" style="color:var(--teal);"></span></div>
+          <div class="form-group">
+            <label class="form-label">Status</label>
+            <select id="g-went" onchange="saveGym()">
+              <option value="">— Select —</option>
+              <option value="yes">✅ Went to gym!</option>
+              <option value="home">🏠 Home workout</option>
+              <option value="rest">😴 Rest day</option>
+              <option value="skip">❌ Skipped</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Duration (minutes)</label>
+            <input type="number" id="g-dur" placeholder="e.g. 60" oninput="saveGym()">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Cardio Activity</label>
+            <select id="g-ctype" onchange="saveGym()">
+              <option value="">None</option>
+              <option value="treadmill">🏃 Treadmill</option>
+              <option value="cycling">🚴 Cycling</option>
+              <option value="elliptical">〰️ Elliptical</option>
+              <option value="jumprope">🪢 Jump Rope</option>
+              <option value="hiit">🔥 HIIT</option>
+              <option value="swim">🏊 Swimming</option>
+              <option value="walk">🚶 Walking</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Cardio Details</label>
+            <textarea id="g-cdets" placeholder="e.g. 20 min @ 8 km/h, 2.5 km" oninput="saveGym()" style="min-height:60px;"></textarea>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Weight Lifting Details</label>
+            <textarea id="g-wdets" placeholder="e.g. Bench 3×10 @ 60kg, Pull-ups 3×8..." oninput="saveGym()"></textarea>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Body Weight (kg)</label>
+            <input type="number" id="g-bw" placeholder="e.g. 75.5" step="0.1" oninput="saveGym()">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Notes / Feel</label>
+            <textarea id="g-notes" placeholder="Energy level, PRs, anything notable..." oninput="saveGym()" style="min-height:60px;"></textarea>
+          </div>
+        </div>
+
+        <div>
+          <div class="card">
+            <div class="card-label">📅 Gym Calendar</div>
+            <div class="cal-nav">
+              <button class="cal-nav-btn" onclick="chMonth('gym',-1)">‹</button>
+              <span class="cal-nav-title" id="gymCalTitle"></span>
+              <button class="cal-nav-btn" onclick="chMonth('gym',1)">›</button>
+            </div>
+            <div class="mini-cal" id="gymCal"></div>
+          </div>
+
+          <div class="card">
+            <div class="card-label">📊 This Month</div>
+            <div id="gymStats"></div>
+          </div>
+
+          <div class="card">
+            <div class="card-label">⚖️ Weight Trend (14 days)</div>
+            <canvas id="wtChart" height="130"></canvas>
+          </div>
+        </div>
+      </div>
+
+      <!-- GYM MONTHLY SCROLL TABLE -->
+      <div class="card">
+        <div class="card-label">📊 Monthly Gym Log — <span id="gymTableMonthLabel" style="color:var(--teal); font-style:normal;"></span></div>
+        <p style="font-size:0.75rem; color:var(--text3); margin-bottom:14px;">Full month at a glance. Scroll horizontally for all details.</p>
+        <div class="food-scroll-wrap">
+          <table class="food-table" id="gymScrollTable">
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Status</th>
+                <th>Duration</th>
+                <th>Cardio</th>
+                <th>Cardio Details</th>
+                <th>Weights</th>
+                <th>Body Weight</th>
+                <th>Notes</th>
+              </tr>
+            </thead>
+            <tbody id="gymTableBody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="page" id="page-skincare">
+      <div class="ph">
+        <div>
+          <div class="ph-title"><span class="grad">Skincare Routine</span></div>
+          <div class="ph-sub">AM/PM steps, track daily and see monthly consistency</div>
+        </div>
+        <button class="btn btn-primary" onclick="openM('mAddSkin')">+ Add Step</button>
+      </div>
+
+      <div class="g2">
+        <div class="card">
+          <div class="card-label">📅 Consistency Calendar</div>
+          <div class="cal-nav">
+            <button class="cal-nav-btn" onclick="chMonth('skin',-1)">‹</button>
+            <span class="cal-nav-title" id="skinCalTitle"></span>
+            <button class="cal-nav-btn" onclick="chMonth('skin',1)">›</button>
+          </div>
+          <div class="mini-cal" id="skinCal"></div>
+        </div>
+
+        <div class="card">
+          <div class="card-label">✨ <span id="skinDateLbl">Today's</span> Routine</div>
+          <div id="skinCheckList"></div>
+          <div id="skinProg" style="margin-top:14px;"></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-label">⚙️ Manage Steps</div>
+        <div id="skinManage"></div>
+      </div>
+    </div>
+
+    <!-- ==================== P5: TRADE CAL ==================== -->
+    <div class="page" id="page-tradecal">
+      <div class="ph">
+        <div>
+          <div class="ph-title"><span class="grad">Trade Calendar</span></div>
+          <div class="ph-sub">P&L log for personal & funded accounts in USD / INR</div>
+        </div>
+        <button class="btn btn-primary" onclick="openM('mAddTrade')">+ Log Trade</button>
+      </div>
+
+      <div class="g2">
+        <div class="card">
+          <div class="card-label">📅 P&L Calendar</div>
+          <div class="cal-nav">
+            <button class="cal-nav-btn" onclick="chMonth('tc',-1)">‹</button>
+            <span class="cal-nav-title" id="tcCalTitle"></span>
+            <button class="cal-nav-btn" onclick="chMonth('tc',1)">›</button>
+          </div>
+          <div class="mini-cal" id="tcCal"></div>
+        </div>
+
+        <div>
+          <div class="card">
+            <div class="card-label">📊 Monthly P&L</div>
+            <div id="tcSummary"></div>
+          </div>
+          <div class="card">
+            <div class="card-label">📋 Trade Log</div>
+            <div style="overflow-x:auto;">
+              <table>
+                <thead><tr><th>Date</th><th>Account</th><th>Result</th><th>USD</th><th>INR</th><th>Notes</th><th></th></tr></thead>
+                <tbody id="tcTable"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== P6: TRADE RULES ==================== -->
+    <div class="page" id="page-traderules">
+      <div class="ph">
+        <div>
+          <div class="ph-title"><span class="grad">Trade Rules</span></div>
+          <div class="ph-sub">Daily rule adherence — build discipline one session at a time</div>
+        </div>
+        <button class="btn btn-primary" onclick="openM('mAddRule')">+ Add Rule</button>
+      </div>
+
+      <div class="g2">
+        <div class="card">
+          <div class="card-label">📅 Adherence Calendar</div>
+          <div class="cal-nav">
+            <button class="cal-nav-btn" onclick="chMonth('tr',-1)">‹</button>
+            <span class="cal-nav-title" id="trCalTitle"></span>
+            <button class="cal-nav-btn" onclick="chMonth('tr',1)">›</button>
+          </div>
+          <div class="mini-cal" id="trCal"></div>
+        </div>
+
+        <div class="card">
+          <div class="card-label">📋 <span id="trDateLbl">Today's</span> Rules</div>
+          <div id="trCheckList"></div>
+          <div id="trProg" style="margin-top:14px;"></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-label">⚙️ Manage Rules</div>
+        <div id="trManage"></div>
+      </div>
+    </div>
+
+    <!-- ==================== P7: JOURNAL ==================== -->
+    <div class="page" id="page-journal">
+      <div class="ph">
+        <div>
+          <div class="ph-title"><span class="grad">Daily Journal</span></div>
+          <div class="ph-sub">Capture thoughts, mood, wins, reflections — every single day</div>
+        </div>
+        <div style="display:flex; gap:10px; align-items:center;">
+          <input type="date" id="jDate" style="width:auto;" onchange="loadJournal()">
+          <button class="btn btn-primary" onclick="saveJournal()">Save ✓</button>
+        </div>
+      </div>
+
+      <div class="g2">
+        <div>
+          <div class="journal-section">
+            <div class="journal-section-head">🌟 What's New Today?</div>
+            <textarea id="j-new" placeholder="Any highlight, new experience, or something exciting..."></textarea>
+          </div>
+          <div class="journal-section">
+            <div class="journal-section-head">📝 Overall Day — How did it go?</div>
+            <textarea id="j-overall" placeholder="Describe your day in a few lines — what happened, how it felt, the vibe..." style="min-height:100px;"></textarea>
+          </div>
+          <div class="journal-section">
+            <div class="journal-section-head">💼 Work & Productivity</div>
+            <textarea id="j-work" placeholder="What did you work on? Tasks done, blockers, wins..."></textarea>
+          </div>
+          <div class="journal-section">
+            <div class="journal-section-head">😊 Mood</div>
+            <div style="display:flex; gap:6px; padding: 12px 16px 4px; flex-wrap:wrap;" id="jMoodPicker">
+              <span class="mood-btn" onclick="setMood('😊',this)">😊</span>
+              <span class="mood-btn" onclick="setMood('😄',this)">😄</span>
+              <span class="mood-btn" onclick="setMood('🤩',this)">🤩</span>
+              <span class="mood-btn" onclick="setMood('😐',this)">😐</span>
+              <span class="mood-btn" onclick="setMood('😔',this)">😔</span>
+              <span class="mood-btn" onclick="setMood('😤',this)">😤</span>
+              <span class="mood-btn" onclick="setMood('😰',this)">😰</span>
+              <span class="mood-btn" onclick="setMood('😴',this)">😴</span>
+            </div>
+            <input type="hidden" id="j-mood">
+            <textarea id="j-moodNote" placeholder="How are you feeling? Any reason?" style="border-top: 1px solid var(--border2);"></textarea>
+          </div>
+          <div class="journal-section">
+            <div class="journal-section-head">📈 Trading</div>
+            <textarea id="j-trade" placeholder="Trade review, psychology notes, mistakes, lessons..."></textarea>
+          </div>
+          <div class="journal-section">
+            <div class="journal-section-head">💪 Routine & Health</div>
+            <textarea id="j-routine" placeholder="Gym, meals, sleep quality, hydration, habits..."></textarea>
+          </div>
+          <div class="journal-section">
+            <div class="journal-section-head">🙏 Thoughts & Gratitude</div>
+            <textarea id="j-thoughts" placeholder="What are you grateful for? Random thoughts, reflections..."></textarea>
+          </div>
+        </div>
+
+        <div>
+          <div class="card">
+            <div class="card-label">📚 Recent Entries</div>
+            <div id="jEntries"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== P8: IMPORTANT DATES ==================== -->
+    <div class="page" id="page-dates">
+      <div class="ph">
+        <div>
+          <div class="ph-title"><span class="grad">Important Dates</span></div>
+          <div class="ph-sub">Track milestones, deadlines, recurring events with countdowns</div>
+        </div>
+        <button class="btn btn-primary" onclick="openM('mAddDate')">+ Add Date</button>
+      </div>
+
+      <div class="card">
+        <div class="card-label">📅 All Tracked Dates</div>
+        <div style="overflow-x:auto;">
+          <table>
+            <thead><tr><th>Item / Event</th><th>Date</th><th>Category</th><th>Countdown</th><th>Notes</th><th></th></tr></thead>
+            <tbody id="datesTable"></tbody>
+          </table>
+        </div>
+        <div id="datesEmpty" class="empty" style="display:none;">
+          <div class="empty-icon">📅</div><p>No dates yet. Add something to track!</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== P9: CONSISTENCY ==================== -->
+    <div class="page" id="page-consistency">
+      <div class="ph">
+        <div>
+          <div class="ph-title"><span class="grad">Consistency Dashboard</span></div>
+          <div class="ph-sub">Your overall fat-loss & lifestyle score — stay accountable</div>
+        </div>
+      </div>
+
+      <!-- FAT LOSS TIPS -->
+      <div class="card" style="background: linear-gradient(135deg, var(--surface), var(--surface2)); margin-bottom:20px;">
+        <div class="card-label">💡 Fat Loss Principles</div>
+        <div style="display:grid; grid-template-columns: repeat(auto-fill, minmax(180px,1fr)); gap:10px;">
+          <div class="tip-card"><div class="tip-icon">💧</div><div class="tip-title">Hydrate First</div><div class="tip-body">8-10 glasses/day. Drink 500ml before each meal to cut appetite.</div></div>
+          <div class="tip-card"><div class="tip-icon">🌙</div><div class="tip-title">Sleep 7-8h</div><div class="tip-body">Sleep deprivation raises cortisol, which stores fat. Non-negotiable.</div></div>
+          <div class="tip-card"><div class="tip-icon">🍽️</div><div class="tip-title">Caloric Deficit</div><div class="tip-body">300-500 kcal below TDEE. No starvation — sustainable deficit wins.</div></div>
+          <div class="tip-card"><div class="tip-icon">🏋️</div><div class="tip-title">Lift Heavy</div><div class="tip-body">Muscle = higher metabolic rate. 3-4 sessions/week minimum.</div></div>
+          <div class="tip-card"><div class="tip-icon">⏰</div><div class="tip-title">No Late Eating</div><div class="tip-body">Finish dinner 2-3h before sleep. Stops insulin spikes at night.</div></div>
+          <div class="tip-card"><div class="tip-icon">🧘</div><div class="tip-title">Manage Stress</div><div class="tip-body">Cortisol = belly fat. Journal daily. Trade psychology matters too.</div></div>
+        </div>
+      </div>
+
+      <!-- STATS -->
+      <div class="g3" id="conStats"></div>
+
+      <!-- HEATMAP -->
+      <div class="card" style="margin-top:20px;">
+        <div class="card-label">📊 Last 30 Days Heatmap</div>
+        <div class="heatmap" id="hmGrid"></div>
+        <div style="display:flex; gap:8px; margin-top:12px; align-items:center; font-size:0.72rem; color:var(--text3);">
+          <span>Less</span>
+          <div style="width:12px;height:12px;border-radius:2px;background:var(--surface3);"></div>
+          <div style="width:12px;height:12px;border-radius:2px;background:rgba(14,165,233,0.25);"></div>
+          <div style="width:12px;height:12px;border-radius:2px;background:rgba(14,165,233,0.55);"></div>
+          <div style="width:12px;height:12px;border-radius:2px;background:var(--teal);"></div>
+          <span>More consistent</span>
+        </div>
+      </div>
+
+      <!-- WEIGHT CHART -->
+      <div class="card" style="margin-top:20px;">
+        <div class="card-label">⚖️ Weight Trend (All Time)</div>
+        <canvas id="wtBig" height="90"></canvas>
+      </div>
+    </div>
+
+  </div><!-- /.main -->
+</div><!-- /#appShell -->
+
+<!-- ================================================
+     MODALS
+     ================================================ -->
+
+<div class="overlay" id="mAddRoutine">
+  <div class="modal">
+    <div class="modal-title">Add Habit</div>
+    <div class="form-group"><label class="form-label">Habit Name</label><input type="text" id="mR-name" placeholder="e.g. Morning walk, Read 20 pages..."></div>
+    <div class="form-group"><label class="form-label">Category</label>
+      <select id="mR-cat"><option value="health">💪 Health</option><option value="mindset">🧠 Mindset</option><option value="work">💼 Work</option><option value="personal">✨ Personal</option><option value="fitness">🏋️ Fitness</option><option value="nutrition">🥗 Nutrition</option></select>
+    </div>
+    <div class="modal-actions">
+      <button class="btn btn-ghost" onclick="closeM('mAddRoutine')">Cancel</button>
+      <button class="btn btn-primary" onclick="addRoutineHabit()">Add</button>
+    </div>
+  </div>
+</div>
+
+<div class="overlay" id="mEditRoutine">
+  <div class="modal">
+    <div class="modal-title">Edit Habit</div>
+    <input type="hidden" id="mER-id">
+    <div class="form-group"><label class="form-label">Habit Name</label><input type="text" id="mER-name"></div>
+    <div class="form-group"><label class="form-label">Category</label>
+      <select id="mER-cat"><option value="health">💪 Health</option><option value="mindset">🧠 Mindset</option><option value="work">💼 Work</option><option value="personal">✨ Personal</option><option value="fitness">🏋️ Fitness</option><option value="nutrition">🥗 Nutrition</option></select>
+    </div>
+    <div class="modal-actions">
+      <button class="btn btn-ghost" onclick="closeM('mEditRoutine')">Cancel</button>
+      <button class="btn btn-primary" onclick="saveEditRoutine()">Save</button>
+    </div>
+  </div>
+</div>
+
+<div class="overlay" id="mAddSkin">
+  <div class="modal">
+    <div class="modal-title">Add Skincare Step</div>
+    <div class="form-group"><label class="form-label">Step</label><input type="text" id="mS-name" placeholder="e.g. Vitamin C Serum, SPF 50..."></div>
+    <div class="form-group"><label class="form-label">When</label>
+      <select id="mS-time"><option value="am">☀️ Morning (AM)</option><option value="pm">🌙 Night (PM)</option><option value="both">🔄 Both</option></select>
+    </div>
+    <div class="modal-actions">
+      <button class="btn btn-ghost" onclick="closeM('mAddSkin')">Cancel</button>
+      <button class="btn btn-primary" onclick="addSkinStep()">Add</button>
+    </div>
+  </div>
+</div>
+
+<div class="overlay" id="mEditSkin">
+  <div class="modal">
+    <div class="modal-title">Edit Skincare Step</div>
+    <input type="hidden" id="mES-id">
+    <div class="form-group"><label class="form-label">Step</label><input type="text" id="mES-name"></div>
+    <div class="form-group"><label class="form-label">When</label>
+      <select id="mES-time"><option value="am">☀️ AM</option><option value="pm">🌙 PM</option><option value="both">🔄 Both</option></select>
+    </div>
+    <div class="modal-actions">
+      <button class="btn btn-ghost" onclick="closeM('mEditSkin')">Cancel</button>
+      <button class="btn btn-primary" onclick="saveEditSkin()">Save</button>
+    </div>
+  </div>
+</div>
+
+<div class="overlay" id="mAddTrade">
+  <div class="modal">
+    <div class="modal-title">Log Trade</div>
+    <div class="form-group"><label class="form-label">Date</label><input type="date" id="mT-date"></div>
+    <div class="form-group"><label class="form-label">Account</label>
+      <select id="mT-acc"><option value="personal">💼 Personal</option><option value="funded">🏦 Funded</option></select>
+    </div>
+    <div class="form-group"><label class="form-label">Result</label>
+      <select id="mT-res"><option value="profit">📈 Profit</option><option value="loss">📉 Loss</option><option value="be">➖ Breakeven</option><option value="none">⏭️ No Trade</option></select>
+    </div>
+    <div class="form-group"><label class="form-label">Amount USD ($)</label><input type="number" id="mT-usd" placeholder="e.g. 120.50" step="0.01"></div>
+    <div class="form-group"><label class="form-label">Amount INR (₹)</label><input type="number" id="mT-inr" placeholder="e.g. 10200" step="0.01"></div>
+    <div class="form-group"><label class="form-label">Notes</label><textarea id="mT-notes" placeholder="Strategy, instruments, thoughts..."></textarea></div>
+    <div class="modal-actions">
+      <button class="btn btn-ghost" onclick="closeM('mAddTrade')">Cancel</button>
+      <button class="btn btn-primary" onclick="addTrade()">Save</button>
+    </div>
+  </div>
+</div>
+
+<div class="overlay" id="mAddRule">
+  <div class="modal">
+    <div class="modal-title">Add Trade Rule</div>
+    <div class="form-group"><label class="form-label">Rule</label><input type="text" id="mTR-name" placeholder="e.g. Never revenge trade, Set SL first..."></div>
+    <div class="modal-actions">
+      <button class="btn btn-ghost" onclick="closeM('mAddRule')">Cancel</button>
+      <button class="btn btn-primary" onclick="addTradeRule()">Add</button>
+    </div>
+  </div>
+</div>
+
+<div class="overlay" id="mEditRule">
+  <div class="modal">
+    <div class="modal-title">Edit Rule</div>
+    <input type="hidden" id="mETR-id">
+    <div class="form-group"><label class="form-label">Rule</label><input type="text" id="mETR-name"></div>
+    <div class="modal-actions">
+      <button class="btn btn-ghost" onclick="closeM('mEditRule')">Cancel</button>
+      <button class="btn btn-primary" onclick="saveEditRule()">Save</button>
+    </div>
+  </div>
+</div>
+
+<div class="overlay" id="mAddDate">
+  <div class="modal">
+    <div class="modal-title">Add Important Date</div>
+    <div class="form-group"><label class="form-label">Event / Item</label><input type="text" id="mD-name" placeholder="e.g. Tax filing, Birthday..."></div>
+    <div class="form-group"><label class="form-label">Date</label><input type="date" id="mD-date"></div>
+    <div class="form-group"><label class="form-label">Category</label>
+      <select id="mD-cat"><option value="personal">👤 Personal</option><option value="health">💪 Health</option><option value="finance">💰 Finance</option><option value="work">💼 Work</option><option value="event">🎉 Event</option><option value="deadline">⚠️ Deadline</option></select>
+    </div>
+    <div class="form-group"><label class="form-label">Notes</label><textarea id="mD-notes" placeholder="Details..." style="min-height:60px;"></textarea></div>
+    <div class="modal-actions">
+      <button class="btn btn-ghost" onclick="closeM('mAddDate')">Cancel</button>
+      <button class="btn btn-primary" onclick="addDate()">Save</button>
+    </div>
+  </div>
+</div>
+
+<div class="overlay" id="mEditDate">
+  <div class="modal">
+    <div class="modal-title">Edit Date</div>
+    <input type="hidden" id="mED-id">
+    <div class="form-group"><label class="form-label">Event / Item</label><input type="text" id="mED-name"></div>
+    <div class="form-group"><label class="form-label">Date</label><input type="date" id="mED-date"></div>
+    <div class="form-group"><label class="form-label">Category</label>
+      <select id="mED-cat"><option value="personal">👤 Personal</option><option value="health">💪 Health</option><option value="finance">💰 Finance</option><option value="work">💼 Work</option><option value="event">🎉 Event</option><option value="deadline">⚠️ Deadline</option></select>
+    </div>
+    <div class="form-group"><label class="form-label">Notes</label><textarea id="mED-notes" style="min-height:60px;"></textarea></div>
+    <div class="modal-actions">
+      <button class="btn btn-ghost" onclick="closeM('mEditDate')">Cancel</button>
+      <button class="btn btn-primary" onclick="saveEditDate()">Save</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ================================================================
+//  UTILITIES
+// ================================================================
+const DB = {
+  get:(k,d=null)=>{ try{const v=localStorage.getItem(k);return v?JSON.parse(v):d;}catch{return d;} },
+  set:(k,v)=>localStorage.setItem(k,JSON.stringify(v))
+};
+const today=()=>new Date().toISOString().split('T')[0];
+const uid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2);
+const fmtD=(s)=>new Date(s+'T00:00:00').toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric'});
+const fmtShort=(s)=>new Date(s+'T00:00:00').toLocaleDateString('en-IN',{day:'numeric',month:'short'});
+
+// ================================================================
+//  LOGIN
+// ================================================================
+const CREDS = { user: 'sanket', pass: 'IamMillionare@2027' };
+
+function doLogin() {
+  const u = document.getElementById('loginUser').value.trim();
+  const p = document.getElementById('loginPass').value;
+  if (u === CREDS.user && p === CREDS.pass) {
+    document.getElementById('loginPage').style.display = 'none';
+    document.getElementById('appShell').style.display = 'block';
+    initApp();
+  } else {
+    const err = document.getElementById('loginError');
+    err.style.display = 'block';
+    err.textContent = 'Incorrect username or password. Try again.';
+    document.getElementById('loginPass').value = '';
+  }
+}
+
+function doLogout() {
+  document.getElementById('appShell').style.display = 'none';
+  document.getElementById('loginPage').style.display = 'flex';
+  document.getElementById('loginUser').value = '';
+  document.getElementById('loginPass').value = '';
+  document.getElementById('loginError').style.display = 'none';
+}
+
+document.getElementById('loginUser').addEventListener('keydown', e => { if(e.key==='Enter') document.getElementById('loginPass').focus(); });
+document.getElementById('loginPass').addEventListener('keydown', e => { if(e.key==='Enter') doLogin(); });
+
+// ================================================================
+//  THEME
+// ================================================================
+function toggleTheme() {
+  const html = document.documentElement;
+  const cur = html.getAttribute('data-theme');
+  const next = cur === 'dark' ? 'light' : 'dark';
+  html.setAttribute('data-theme', next);
+  DB.set('theme', next);
+}
+(()=>{ const t = DB.get('theme','dark'); document.documentElement.setAttribute('data-theme',t); })();
+
+// ================================================================
+//  INIT APP
+// ================================================================
+const calState = {};
+const selDates = { routine: today(), skin: today(), tr: today() };
+const quotes = [
+  "Consistency is the bridge between goals and achievement.",
+  "Small daily improvements lead to stunning long-term results.",
+  "Your future self is watching every choice you make today.",
+  "Discipline over motivation — one is fleeting, one is built.",
+  "Progress, not perfection. Show up every single day.",
+  "The gym is easy. Showing up is the hard part.",
+  "Track it. Own it. Improve it.",
+  "One percent better every day — that's 37x better in a year.",
+  "Fat loss is simple. Consistent choices are what make it hard.",
+  "What gets measured gets managed.",
+];
+
+function initApp() {
+  // Date
+  document.getElementById('topbarDate').textContent = new Date().toLocaleDateString('en-IN',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
+  // Quote (rotate daily)
+  const q = quotes[new Date().getDay() % quotes.length];
+  document.getElementById('quoteBar').innerHTML = `<strong>✦</strong> ${q}`;
+  // Init food & gym date pickers
+  document.getElementById('foodDatePicker').value = today();
+  document.getElementById('gymDatePicker').value = today();
+  document.getElementById('jDate').value = today();
+  // Render first page
+  renderPage('routine');
+}
+
+// ================================================================
+//  PAGE NAV
+// ================================================================
+function gotoPage(name) {
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(t=>t.classList.remove('active'));
+  document.getElementById('page-'+name).classList.add('active');
+  document.querySelector(`[data-page="${name}"]`).classList.add('active');
+  renderPage(name);
+}
+
+function renderPage(n) {
+  const m = {
+    routine: renderRoutinePage,
+    food: renderFoodPage,
+    gym: renderGymPage,
+    skincare: renderSkincarePage,
+    tradecal: renderTradeCalPage,
+    traderules: renderTradeRulesPage,
+    journal: renderJournalPage,
+    dates: renderDatesPage,
+    consistency: renderConsistencyPage,
+  };
+  if (m[n]) m[n]();
+}
+
+// ================================================================
+//  MODALS
+// ================================================================
+function openM(id) {
+  document.getElementById(id).classList.add('open');
+  if (id==='mAddTrade') document.getElementById('mT-date').value = today();
+  if (id==='mAddDate') document.getElementById('mD-date').value = today();
+}
+function closeM(id) { document.getElementById(id).classList.remove('open'); }
+document.querySelectorAll('.overlay').forEach(o=>o.addEventListener('click',e=>{if(e.target===o)o.classList.remove('open');}));
+document.addEventListener('keydown',e=>{
+  if(e.key==='Escape') document.querySelectorAll('.overlay.open').forEach(o=>o.classList.remove('open'));
+});
+
+// ================================================================
+//  CALENDAR ENGINE
+// ================================================================
+function getCS(key) {
+  if (!calState[key]) { const n=new Date(); calState[key]={y:n.getFullYear(),m:n.getMonth()}; }
+  return calState[key];
+}
+function chMonth(key, d) {
+  const s=getCS(key); s.m+=d;
+  if(s.m<0){s.m=11;s.y--;}
+  if(s.m>11){s.m=0;s.y++;}
+  const renders = {
+    routine:renderRoutineCalendar, food:renderFoodCalendar,
+    gym:renderGymCalendar, skin:renderSkinCalendar,
+    tc:renderTCCalendar, tr:renderTRCalendar
+  };
+  if(renders[key]) renders[key]();
+  if(key==='food') renderFoodTable();
+}
+const MONTHS=['January','February','March','April','May','June','July','August','September','October','November','December'];
+const DAYS=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+
+function buildCal(containerId, titleId, key, onClickFn, dataCb) {
+  const s=getCS(key);
+  document.getElementById(titleId).textContent=`${MONTHS[s.m]} ${s.y}`;
+  const fd=new Date(s.y,s.m,1).getDay();
+  const dim=new Date(s.y,s.m+1,0).getDate();
+  const todayStr=today();
+  let h=DAYS.map(d=>`<div class="day-hd">${d}</div>`).join('');
+  for(let i=0;i<fd;i++) h+=`<div class="day-cell empty"></div>`;
+  for(let d=1;d<=dim;d++){
+    const ds=`${s.y}-${String(s.m+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+    const isTod=ds===todayStr;
+    const isSel=selDates[key]===ds;
+    const cd=dataCb(ds);
+    h+=`<div class="day-cell ${isTod?'today':''} ${isSel?'selected':''} ${cd.cls||''}" onclick="${onClickFn}('${ds}')">
+      ${d}
+      ${cd.badge?`<div class="day-badge ${cd.badgeCls||''}">${cd.badge}</div>`:''}
+      ${cd.dot?`<div class="day-dot"></div>`:''}
+    </div>`;
+  }
+  document.getElementById(containerId).innerHTML=h;
+}
+
+// ================================================================
+//  PAGE 1 — ROUTINE
+// ================================================================
+function renderRoutinePage() { renderRoutineCalendar(); renderRoutineChecklist(); renderRoutineManage(); }
+
+function renderRoutineCalendar() {
+  buildCal('routineCal','routineCalTitle','routine','selRoutineDate',(ds)=>{
+    const items=DB.get('routineItems',[]);
+    const checks=DB.get('routineChecks',{});
+    const dc=checks[ds]||[];
+    if(!items.length) return {};
+    const pct=Math.round((dc.length/items.length)*100);
+    if(!pct) return {};
+    const cls=pct>=80?'badge-green':pct>=50?'badge-yellow':'badge-red';
+    return {badge:`${pct}%`,badgeCls:cls,cls:'has-data'};
+  });
+}
+
+function selRoutineDate(ds) {
+  selDates.routine=ds;
+  document.getElementById('routineDateLbl').textContent=ds===today()?'Today\'s':fmtShort(ds);
+  renderRoutineCalendar(); renderRoutineChecklist();
+}
+
+function renderRoutineChecklist() {
+  const items=DB.get('routineItems',[]);
+  const checks=DB.get('routineChecks',{});
+  const dc=checks[selDates.routine]||[];
+  const el=document.getElementById('routineCheckList');
+  if(!items.length){el.innerHTML=`<div class="empty"><div class="empty-icon">📋</div><p>Add your first habit to get started!</p></div>`;document.getElementById('routineProg').innerHTML='';return;}
+  const catIcons={health:'💪',mindset:'🧠',work:'💼',personal:'✨',fitness:'🏋️',nutrition:'🥗'};
+  el.innerHTML=items.map(it=>{
+    const done=dc.includes(it.id);
+    return `<div class="check-item ${done?'done':''}">
+      <div class="check-box" onclick="toggleRoutine('${it.id}')">${done?'✓':''}</div>
+      <span class="check-label">${it.name}</span>
+      <span class="tag tag-teal" style="font-size:0.65rem;">${catIcons[it.category]||'📌'}</span>
+    </div>`;
+  }).join('');
+  const pct=Math.round((dc.length/items.length)*100);
+  document.getElementById('routineProg').innerHTML=`
+    <div class="prog-row"><span>${dc.length}/${items.length} done</span><span style="color:${pct>=80?'var(--green)':pct>=50?'var(--yellow)':'var(--red)'}">${pct}%</span></div>
+    <div class="prog-bar"><div class="prog-fill" style="width:${pct}%"></div></div>`;
+}
+
+function toggleRoutine(id) {
+  const checks=DB.get('routineChecks',{});
+  if(!checks[selDates.routine]) checks[selDates.routine]=[];
+  const i=checks[selDates.routine].indexOf(id);
+  if(i>-1) checks[selDates.routine].splice(i,1); else checks[selDates.routine].push(id);
+  DB.set('routineChecks',checks);
+  renderRoutineChecklist(); renderRoutineCalendar();
+}
+
+function renderRoutineManage() {
+  const items=DB.get('routineItems',[]);
+  const el=document.getElementById('routineManage');
+  if(!items.length){el.innerHTML=`<div class="empty"><div class="empty-icon">➕</div><p>Use the button above to add habits!</p></div>`;return;}
+  const catIcons={health:'💪',mindset:'🧠',work:'💼',personal:'✨',fitness:'🏋️',nutrition:'🥗'};
+  el.innerHTML=items.map(it=>`
+    <div class="manage-item">
+      <span class="manage-item-name">${catIcons[it.category]||'📌'} ${it.name}</span>
+      <button class="btn btn-ghost btn-sm" onclick="openEditRoutine('${it.id}')">Edit</button>
+      <button class="btn btn-danger btn-sm" onclick="delRoutine('${it.id}')">Remove</button>
+    </div>`).join('');
+}
+
+function addRoutineHabit() {
+  const n=document.getElementById('mR-name').value.trim();
+  if(!n) return;
+  const items=DB.get('routineItems',[]);
+  items.push({id:uid(),name:n,category:document.getElementById('mR-cat').value});
+  DB.set('routineItems',items);
+  document.getElementById('mR-name').value='';
+  closeM('mAddRoutine');
+  renderRoutineManage(); renderRoutineChecklist();
+}
+
+function openEditRoutine(id) {
+  const it=DB.get('routineItems',[]).find(x=>x.id===id);
+  if(!it) return;
+  document.getElementById('mER-id').value=id;
+  document.getElementById('mER-name').value=it.name;
+  document.getElementById('mER-cat').value=it.category;
+  openM('mEditRoutine');
+}
+
+function saveEditRoutine() {
+  const id=document.getElementById('mER-id').value;
+  const n=document.getElementById('mER-name').value.trim();
+  if(!n) return;
+  const items=DB.get('routineItems',[]);
+  const i=items.findIndex(x=>x.id===id);
+  if(i>-1) items[i]={...items[i],name:n,category:document.getElementById('mER-cat').value};
+  DB.set('routineItems',items);
+  closeM('mEditRoutine');
+  renderRoutineManage(); renderRoutineChecklist();
+}
+
+function delRoutine(id) {
+  if(!confirm('Remove this habit?')) return;
+  DB.set('routineItems',DB.get('routineItems',[]).filter(x=>x.id!==id));
+  renderRoutineManage(); renderRoutineChecklist(); renderRoutineCalendar();
+}
+
+// ================================================================
+//  PAGE 2 — FOOD
+// ================================================================
+function renderFoodPage() {
+  const d=document.getElementById('foodDatePicker').value||today();
+  document.getElementById('foodLogDateLabel').textContent=fmtD(d);
+  loadFoodDay(d);
+  renderFoodCalendar();
+  renderFoodTable();
+}
+
+function openFoodDay() {
+  const d=document.getElementById('foodDatePicker').value||today();
+  document.getElementById('foodLogDateLabel').textContent=fmtD(d);
+  loadFoodDay(d);
+}
+
+function loadFoodDay(d) {
+  const e=DB.get('foodEntries',{})[d]||{};
+  document.getElementById('fb-bf').value=e.bf||'';
+  document.getElementById('fb-lu').value=e.lu||'';
+  document.getElementById('fb-sn').value=e.sn||'';
+  document.getElementById('fb-di').value=e.di||'';
+  document.getElementById('fb-wa').value=e.wa||'';
+  document.querySelectorAll('.rf-chip').forEach(c=>{
+    c.classList.remove('on'); c.classList.add('off');
+  });
+  (e.flags||[]).forEach(f=>{
+    const el=document.querySelector(`.rf-chip[data-f="${f}"]`);
+    if(el){el.classList.add('on');el.classList.remove('off');}
+  });
+  updateRFStatus(e.flags||[]);
+}
+
+function saveFoodDay() {
+  const d=document.getElementById('foodDatePicker').value||today();
+  const entries=DB.get('foodEntries',{});
+  const flags=[...document.querySelectorAll('.rf-chip.on')].map(c=>c.dataset.f);
+  entries[d]={bf:document.getElementById('fb-bf').value,lu:document.getElementById('fb-lu').value,
+    sn:document.getElementById('fb-sn').value,di:document.getElementById('fb-di').value,
+    wa:document.getElementById('fb-wa').value,flags};
+  DB.set('foodEntries',entries);
+  renderFoodCalendar();
+  renderFoodTable();
+}
+
+function toggleRF(el) {
+  el.classList.toggle('on'); el.classList.toggle('off');
+  const flags=[...document.querySelectorAll('.rf-chip.on')].map(c=>c.dataset.f);
+  updateRFStatus(flags);
+  saveFoodDay();
+}
+
+function updateRFStatus(flags) {
+  const el=document.getElementById('rfStatus');
+  if(!flags.length) el.innerHTML=`<span class="tag tag-green">✅ Clean Day!</span>`;
+  else el.innerHTML=`<span class="tag tag-red">🚩 ${flags.length} flag${flags.length>1?'s':''} today</span>`;
+}
+
+function renderFoodCalendar() {
+  buildCal('foodCal','foodCalTitle','food','selFoodDate',(ds)=>{
+    const e=DB.get('foodEntries',{})[ds];
+    if(!e||((!e.bf)&&(!e.lu)&&(!e.di))) return {};
+    const red=e.flags&&e.flags.length>0;
+    return {dot:true,cls:red?'':'',badge:red?`${e.flags.length}🚩`:undefined,badgeCls:'badge-red'};
+  });
+}
+
+function selFoodDate(ds) {
+  document.getElementById('foodDatePicker').value=ds;
+  document.getElementById('foodLogDateLabel').textContent=fmtD(ds);
+  loadFoodDay(ds);
+}
+
+function renderFoodTable() {
+  const s=getCS('food');
+  const ym=`${s.y}-${String(s.m+1).padStart(2,'0')}`;
+  document.getElementById('foodTableMonthLabel').textContent=`${MONTHS[s.m]} ${s.y}`;
+  const dim=new Date(s.y,s.m+1,0).getDate();
+  const entries=DB.get('foodEntries',{});
+  const flagLabels={overeating:'😋 Overeating',oily:'🫙 Oily',sweets:'🍰 Sweets',sleepAfterDinner:'😴 Sleep after',lateDinner:'🌙 Late dinner',outside:'🥡 Outside',skipped:'⏭️ Skipped',soda:'🥤 Soda'};
+  let html='';
+  for(let d=1;d<=dim;d++){
+    const ds=`${ym}-${String(d).padStart(2,'0')}`;
+    const e=entries[ds]||{};
+    const flags=(e.flags||[]).map(f=>flagLabels[f]||f).join(', ');
+    const isRed=e.flags&&e.flags.length>0;
+    const hasData=e.bf||e.lu||e.di||e.sn;
+    const status=!hasData?'<span class="tag" style="font-size:0.65rem; background:var(--surface3); color:var(--text3);">—</span>':
+      isRed?`<span class="tag tag-red">🚩 Bad day</span>`:`<span class="tag tag-green">✅ Clean</span>`;
+    html+=`<tr class="${isRed?'red-row':''}">
+      <td class="date-col">${String(d).padStart(2,'0')} ${MONTHS[s.m].slice(0,3)}</td>
+      <td>${e.bf||'—'}</td>
+      <td>${e.lu||'—'}</td>
+      <td>${e.sn||'—'}</td>
+      <td>${e.di||'—'}</td>
+      <td style="font-family:var(--mono); font-size:0.8rem;">${e.wa?e.wa+'💧':'—'}</td>
+      <td class="flag-cell" style="font-size:0.78rem;">${flags||'—'}</td>
+      <td>${status}</td>
+    </tr>`;
+  }
+  document.getElementById('foodTableBody').innerHTML=html;
+}
+
+// ================================================================
+//  PAGE 3 — GYM
+// ================================================================
+function renderGymPage() {
+  const d=document.getElementById('gymDatePicker').value||today();
+  document.getElementById('gymDateLabel').textContent=fmtD(d);
+  loadGym();
+  renderGymCalendar();
+  renderGymStats();
+  drawWeightChart();
+  renderGymTable();
+}
+
+function renderGymTable() {
+  const s=getCS('gym');
+  const ym=`${s.y}-${String(s.m+1).padStart(2,'0')}`;
+  document.getElementById('gymTableMonthLabel').textContent=`${MONTHS[s.m]} ${s.y}`;
+  const dim=new Date(s.y,s.m+1,0).getDate();
+  const entries=DB.get('gymEntries',{});
+  const wentLabels={yes:'✅ Gym',home:'🏠 Home',rest:'😴 Rest',skip:'❌ Skipped'};
+  const cardioLabels={treadmill:'🏃 Treadmill',cycling:'🚴 Cycling',elliptical:'〰️ Elliptical',jumprope:'🪢 Jump Rope',hiit:'🔥 HIIT',swim:'🏊 Swimming',walk:'🚶 Walking',other:'Other'};
+  let html='';
+  for(let d=1;d<=dim;d++){
+    const ds=`${ym}-${String(d).padStart(2,'0')}`;
+    const e=entries[ds]||{};
+    const isSkip=e.went==='skip';
+    const isGym=e.went==='yes'||e.went==='home';
+    const statusTag=!e.went
+      ?'<span style="color:var(--text3);">—</span>'
+      :isGym
+        ?`<span class="tag tag-green" style="font-size:0.68rem;">${wentLabels[e.went]}</span>`
+        :isSkip
+          ?`<span class="tag tag-red" style="font-size:0.68rem;">${wentLabels[e.went]}</span>`
+          :`<span class="tag tag-yellow" style="font-size:0.68rem;">${wentLabels[e.went]||e.went}</span>`;
+    html+=`<tr class="${isSkip?'red-row':''}">
+      <td class="date-col">${String(d).padStart(2,'0')} ${MONTHS[s.m].slice(0,3)}</td>
+      <td>${statusTag}</td>
+      <td style="font-family:var(--mono);font-size:0.8rem;">${e.dur?e.dur+' min':'—'}</td>
+      <td>${e.ctype?(cardioLabels[e.ctype]||e.ctype):'—'}</td>
+      <td style="max-width:160px;">${e.cdets||'—'}</td>
+      <td style="max-width:180px;">${e.wdets||'—'}</td>
+      <td style="font-family:var(--mono);font-size:0.8rem;color:var(--teal);">${e.bw?e.bw+' kg':'—'}</td>
+      <td style="max-width:150px;color:var(--text3);">${e.notes||'—'}</td>
+    </tr>`;
+  }
+  document.getElementById('gymTableBody').innerHTML=html;
+}
+
+function loadGym() {
+  const d=document.getElementById('gymDatePicker').value||today();
+  document.getElementById('gymDateLabel').textContent=fmtD(d);
+  const e=DB.get('gymEntries',{})[d]||{};
+  document.getElementById('g-went').value=e.went||'';
+  document.getElementById('g-dur').value=e.dur||'';
+  document.getElementById('g-ctype').value=e.ctype||'';
+  document.getElementById('g-cdets').value=e.cdets||'';
+  document.getElementById('g-wdets').value=e.wdets||'';
+  document.getElementById('g-bw').value=e.bw||'';
+  document.getElementById('g-notes').value=e.notes||'';
+}
+
+function saveGym() {
+  const d=document.getElementById('gymDatePicker').value||today();
+  const entries=DB.get('gymEntries',{});
+  entries[d]={
+    went:document.getElementById('g-went').value,
+    dur:document.getElementById('g-dur').value,
+    ctype:document.getElementById('g-ctype').value,
+    cdets:document.getElementById('g-cdets').value,
+    wdets:document.getElementById('g-wdets').value,
+    bw:document.getElementById('g-bw').value,
+    notes:document.getElementById('g-notes').value,
+  };
+  DB.set('gymEntries',entries);
+  renderGymCalendar(); renderGymStats(); drawWeightChart(); renderGymTable();
+}
+
+['g-went','g-dur','g-ctype','g-cdets','g-wdets','g-bw','g-notes'].forEach(id=>{
+  const el=document.getElementById(id);
+  if(el){ el.addEventListener('input',saveGym); el.addEventListener('change',saveGym); }
+});
+
+function renderGymCalendar() {
+  buildCal('gymCal','gymCalTitle','gym','selGymDate',(ds)=>{
+    const e=DB.get('gymEntries',{})[ds];
+    if(!e||!e.went) return {};
+    if(e.went==='yes'||e.went==='home') return {dot:true};
+    if(e.went==='skip') return {cls:'',badge:'✗',badgeCls:'badge-red'};
+    return {dot:true};
+  });
+}
+
+function selGymDate(ds) {
+  document.getElementById('gymDatePicker').value=ds;
+  loadGym();
+}
+
+function renderGymStats() {
+  const now=new Date();
+  const mk=`${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}`;
+  const entries=DB.get('gymEntries',{});
+  const me=Object.entries(entries).filter(([k])=>k.startsWith(mk));
+  const went=me.filter(([,v])=>v.went==='yes'||v.went==='home').length;
+  const skip=me.filter(([,v])=>v.went==='skip').length;
+  const days=now.getDate();
+  const pct=Math.round((went/days)*100);
+  document.getElementById('gymStats').innerHTML=`
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;text-align:center;">
+      <div style="background:rgba(16,185,129,0.08);border:1px solid rgba(16,185,129,0.15);border-radius:12px;padding:14px;">
+        <div style="font-size:1.8rem;font-weight:900;color:var(--green);font-family:var(--mono);">${went}</div>
+        <div style="font-size:0.68rem;color:var(--text3);font-weight:700;text-transform:uppercase;letter-spacing:0.5px;margin-top:2px;">Went</div>
+      </div>
+      <div style="background:rgba(244,63,94,0.08);border:1px solid rgba(244,63,94,0.15);border-radius:12px;padding:14px;">
+        <div style="font-size:1.8rem;font-weight:900;color:var(--red);font-family:var(--mono);">${skip}</div>
+        <div style="font-size:0.68rem;color:var(--text3);font-weight:700;text-transform:uppercase;letter-spacing:0.5px;margin-top:2px;">Skipped</div>
+      </div>
+      <div style="background:rgba(14,165,233,0.08);border:1px solid rgba(14,165,233,0.15);border-radius:12px;padding:14px;">
+        <div style="font-size:1.8rem;font-weight:900;color:var(--teal);font-family:var(--mono);">${pct}%</div>
+        <div style="font-size:0.68rem;color:var(--text3);font-weight:700;text-transform:uppercase;letter-spacing:0.5px;margin-top:2px;">Rate</div>
+      </div>
+    </div>`;
+}
+
+function drawWeightChart() {
+  const entries=DB.get('gymEntries',{});
+  const data=[];
+  for(let i=13;i>=0;i--){
+    const d=new Date(); d.setDate(d.getDate()-i);
+    const k=d.toISOString().split('T')[0];
+    const e=entries[k];
+    data.push({label:d.toLocaleDateString('en-IN',{day:'numeric',month:'short'}),w:e&&e.bw?parseFloat(e.bw):null});
+  }
+  drawChart('wtChart',data,120);
+}
+
+function drawChart(canvasId, data, height) {
+  const canvas=document.getElementById(canvasId);
+  if(!canvas) return;
+  const valid=data.filter(d=>d.w!==null);
+  const ctx=canvas.getContext('2d');
+  const W=canvas.offsetWidth||300;
+  canvas.width=W; canvas.height=height;
+  ctx.clearRect(0,0,W,height);
+  if(valid.length<2){
+    ctx.fillStyle='#475569'; ctx.font='12px Nunito Sans'; ctx.textAlign='center';
+    ctx.fillText('Log body weight to see trend',W/2,height/2); return;
+  }
+  const mn=Math.min(...valid.map(d=>d.w))-0.5;
+  const mx=Math.max(...valid.map(d=>d.w))+0.5;
+  const pad={t:20,r:20,b:28,l:42};
+  const cW=W-pad.l-pad.r; const cH=height-pad.t-pad.b;
+  // Grid
+  ctx.strokeStyle='rgba(255,255,255,0.05)'; ctx.lineWidth=1;
+  for(let g=0;g<=3;g++){
+    const y=pad.t+(g/3)*cH;
+    ctx.beginPath(); ctx.moveTo(pad.l,y); ctx.lineTo(W-pad.r,y); ctx.stroke();
+    const v=(mx-(g/3)*(mx-mn)).toFixed(1);
+    ctx.fillStyle='#475569'; ctx.font='9px DM Mono'; ctx.textAlign='right';
+    ctx.fillText(v,pad.l-4,y+3);
+  }
+  // Area
+  ctx.beginPath();
+  let first=true;
+  data.forEach((d,i)=>{
+    if(!d.w){first=true;return;}
+    const x=pad.l+(i/(data.length-1))*cW;
+    const y=pad.t+((mx-d.w)/(mx-mn))*cH;
+    if(first){ctx.moveTo(x,y);first=false;} else ctx.lineTo(x,y);
+  });
+  const lastIdx=data.map((d,i)=>d.w?i:-1).filter(i=>i>=0).pop()??0;
+  const firstIdx=data.map((d,i)=>d.w?i:-1).filter(i=>i>=0)[0]??0;
+  ctx.lineTo(pad.l+(lastIdx/(data.length-1))*cW,pad.t+cH);
+  ctx.lineTo(pad.l+(firstIdx/(data.length-1))*cW,pad.t+cH);
+  ctx.closePath();
+  const g2=ctx.createLinearGradient(0,pad.t,0,pad.t+cH);
+  g2.addColorStop(0,'rgba(14,165,233,0.25)');
+  g2.addColorStop(1,'rgba(14,165,233,0)');
+  ctx.fillStyle=g2; ctx.fill();
+  // Line
+  ctx.beginPath(); ctx.strokeStyle='#0ea5e9'; ctx.lineWidth=2;
+  first=true;
+  data.forEach((d,i)=>{
+    if(!d.w){first=true;return;}
+    const x=pad.l+(i/(data.length-1))*cW;
+    const y=pad.t+((mx-d.w)/(mx-mn))*cH;
+    if(first){ctx.moveTo(x,y);first=false;} else ctx.lineTo(x,y);
+  });
+  ctx.stroke();
+  // Dots
+  data.forEach((d,i)=>{
+    if(!d.w) return;
+    const x=pad.l+(i/(data.length-1))*cW;
+    const y=pad.t+((mx-d.w)/(mx-mn))*cH;
+    ctx.beginPath(); ctx.arc(x,y,3.5,0,Math.PI*2);
+    ctx.fillStyle='#0ea5e9'; ctx.fill();
+    ctx.fillStyle='white'; ctx.beginPath(); ctx.arc(x,y,1.5,0,Math.PI*2); ctx.fill();
+  });
+  // X labels
+  ctx.fillStyle='#475569'; ctx.font='8px Nunito Sans'; ctx.textAlign='center';
+  data.forEach((d,i)=>{
+    if(i%3!==0) return;
+    const x=pad.l+(i/(data.length-1))*cW;
+    ctx.fillText(d.label,x,height-4);
+  });
+}
+
+// ================================================================
+//  PAGE 4 — SKINCARE
+// ================================================================
+function renderSkincarePage() { renderSkinCalendar(); renderSkinChecklist(); renderSkinManage(); }
+
+function renderSkinCalendar() {
+  buildCal('skinCal','skinCalTitle','skin','selSkinDate',(ds)=>{
+    const items=DB.get('skinItems',[]);
+    const checks=DB.get('skinChecks',{});
+    const dc=checks[ds]||[];
+    if(!items.length) return {};
+    const pct=Math.round((dc.length/items.length)*100);
+    if(!pct) return {};
+    return {badge:`${pct}%`,badgeCls:pct>=80?'badge-green':pct>=50?'badge-yellow':'badge-red',cls:'has-data'};
+  });
+}
+
+function selSkinDate(ds) {
+  selDates.skin=ds;
+  document.getElementById('skinDateLbl').textContent=ds===today()?'Today\'s':fmtShort(ds);
+  renderSkinCalendar(); renderSkinChecklist();
+}
+
+function renderSkinChecklist() {
+  const items=DB.get('skinItems',[]);
+  const checks=DB.get('skinChecks',{});
+  const dc=checks[selDates.skin]||[];
+  const el=document.getElementById('skinCheckList');
+  if(!items.length){el.innerHTML=`<div class="empty"><div class="empty-icon">✨</div><p>Add your skincare steps!</p></div>`;return;}
+  const tl={am:'☀️ AM',pm:'🌙 PM',both:'🔄 Both'};
+  el.innerHTML=items.map(it=>{
+    const done=dc.includes(it.id);
+    return `<div class="check-item ${done?'done':''}">
+      <div class="check-box" onclick="toggleSkin('${it.id}')">${done?'✓':''}</div>
+      <span class="check-label">${it.name}</span>
+      <span class="tag tag-teal" style="font-size:0.65rem;">${tl[it.time]||''}</span>
+    </div>`;
+  }).join('');
+  const pct=Math.round((dc.length/items.length)*100);
+  document.getElementById('skinProg').innerHTML=`
+    <div class="prog-row"><span>${dc.length}/${items.length} done</span><span>${pct}%</span></div>
+    <div class="prog-bar"><div class="prog-fill" style="width:${pct}%"></div></div>`;
+}
+
+function toggleSkin(id) {
+  const checks=DB.get('skinChecks',{});
+  if(!checks[selDates.skin]) checks[selDates.skin]=[];
+  const i=checks[selDates.skin].indexOf(id);
+  if(i>-1) checks[selDates.skin].splice(i,1); else checks[selDates.skin].push(id);
+  DB.set('skinChecks',checks);
+  renderSkinChecklist(); renderSkinCalendar();
+}
+
+function renderSkinManage() {
+  const items=DB.get('skinItems',[]);
+  const el=document.getElementById('skinManage');
+  if(!items.length){el.innerHTML=`<div class="empty"><div class="empty-icon">➕</div><p>Add steps above!</p></div>`;return;}
+  const tl={am:'☀️ AM',pm:'🌙 PM',both:'🔄 Both'};
+  el.innerHTML=items.map(it=>`
+    <div class="manage-item">
+      <span class="manage-item-name">${it.name}</span>
+      <span class="tag tag-teal" style="font-size:0.65rem;">${tl[it.time]}</span>
+      <button class="btn btn-ghost btn-sm" onclick="openEditSkin('${it.id}')">Edit</button>
+      <button class="btn btn-danger btn-sm" onclick="delSkin('${it.id}')">Remove</button>
+    </div>`).join('');
+}
+
+function addSkinStep() {
+  const n=document.getElementById('mS-name').value.trim();
+  if(!n) return;
+  const items=DB.get('skinItems',[]);
+  items.push({id:uid(),name:n,time:document.getElementById('mS-time').value});
+  DB.set('skinItems',items);
+  document.getElementById('mS-name').value='';
+  closeM('mAddSkin');
+  renderSkinManage(); renderSkinChecklist();
+}
+
+function openEditSkin(id) {
+  const it=DB.get('skinItems',[]).find(x=>x.id===id);
+  if(!it) return;
+  document.getElementById('mES-id').value=id;
+  document.getElementById('mES-name').value=it.name;
+  document.getElementById('mES-time').value=it.time;
+  openM('mEditSkin');
+}
+
+function saveEditSkin() {
+  const id=document.getElementById('mES-id').value;
+  const n=document.getElementById('mES-name').value.trim();
+  if(!n) return;
+  const items=DB.get('skinItems',[]);
+  const i=items.findIndex(x=>x.id===id);
+  if(i>-1) items[i]={...items[i],name:n,time:document.getElementById('mES-time').value};
+  DB.set('skinItems',items);
+  closeM('mEditSkin');
+  renderSkinManage(); renderSkinChecklist();
+}
+
+function delSkin(id) {
+  if(!confirm('Remove this step?')) return;
+  DB.set('skinItems',DB.get('skinItems',[]).filter(x=>x.id!==id));
+  renderSkinManage(); renderSkinChecklist(); renderSkinCalendar();
+}
+
+// ================================================================
+//  PAGE 5 — TRADE CAL
+// ================================================================
+function renderTradeCalPage() { renderTCCalendar(); renderTCTable(); renderTCSummary(); }
+
+function renderTCCalendar() {
+  buildCal('tcCal','tcCalTitle','tc','selTCDate',(ds)=>{
+    const entries=DB.get('tradeEntries',[]).filter(e=>e.date===ds);
+    if(!entries.length) return {};
+    const hasP=entries.some(e=>e.res==='profit');
+    const hasL=entries.some(e=>e.res==='loss');
+    if(hasP&&!hasL) return {dot:true,cls:'badge-green'};
+    if(hasL) return {dot:true,cls:'badge-red'};
+    return {dot:true};
+  });
+}
+
+function selTCDate(ds) { document.getElementById('mT-date').value=ds; }
+
+function addTrade() {
+  const d=document.getElementById('mT-date').value;
+  if(!d) return;
+  const entries=DB.get('tradeEntries',[]);
+  entries.push({id:uid(),date:d,acc:document.getElementById('mT-acc').value,
+    res:document.getElementById('mT-res').value,
+    usd:parseFloat(document.getElementById('mT-usd').value)||0,
+    inr:parseFloat(document.getElementById('mT-inr').value)||0,
+    notes:document.getElementById('mT-notes').value});
+  DB.set('tradeEntries',entries);
+  ['mT-usd','mT-inr','mT-notes'].forEach(id=>document.getElementById(id).value='');
+  closeM('mAddTrade');
+  renderTradeCalPage();
+}
+
+function delTrade(id) {
+  if(!confirm('Delete this entry?')) return;
+  DB.set('tradeEntries',DB.get('tradeEntries',[]).filter(e=>e.id!==id));
+  renderTradeCalPage();
+}
+
+function renderTCTable() {
+  const entries=DB.get('tradeEntries',[]).sort((a,b)=>b.date.localeCompare(a.date));
+  const icons={profit:'📈',loss:'📉',be:'➖',none:'⏭️'};
+  const tbody=document.getElementById('tcTable');
+  if(!entries.length){tbody.innerHTML=`<tr><td colspan="7" style="text-align:center;color:var(--text3);padding:30px;">No entries yet.</td></tr>`;return;}
+  tbody.innerHTML=entries.map(e=>{
+    const s=e.res==='loss'?-1:1;
+    return `<tr>
+      <td style="font-family:var(--mono);font-size:0.78rem;">${e.date}</td>
+      <td><span class="tag tag-teal" style="font-size:0.65rem;">${e.acc==='personal'?'💼 Personal':'🏦 Funded'}</span></td>
+      <td>${icons[e.res]||''} ${e.res}</td>
+      <td class="${e.res==='profit'?'pnl-p':e.res==='loss'?'pnl-n':''}">${e.usd?(s>0?'+':'')+e.usd.toFixed(2)+' $':'—'}</td>
+      <td class="${e.res==='profit'?'pnl-p':e.res==='loss'?'pnl-n':''}">${e.inr?(s>0?'+':'')+e.inr.toFixed(0)+' ₹':'—'}</td>
+      <td style="color:var(--text3);font-size:0.78rem;">${e.notes||'—'}</td>
+      <td><button class="btn btn-danger btn-sm" onclick="delTrade('${e.id}')">×</button></td>
+    </tr>`;
+  }).join('');
+}
+
+function renderTCSummary() {
+  const now=new Date();
+  const mk=`${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}`;
+  const all=DB.get('tradeEntries',[]).filter(e=>e.date.startsWith(mk));
+  const calc=(arr)=>arr.reduce((a,e)=>{const s=e.res==='loss'?-1:1;return{usd:a.usd+s*Math.abs(e.usd),inr:a.inr+s*Math.abs(e.inr)};},{usd:0,inr:0});
+  const p=calc(all.filter(e=>e.acc==='personal'));
+  const f=calc(all.filter(e=>e.acc==='funded'));
+  const t={usd:p.usd+f.usd,inr:p.inr+f.inr};
+  const pc=v=>v>=0?'var(--green)':'var(--red)';
+  const ps=v=>v>=0?'+':'';
+  document.getElementById('tcSummary').innerHTML=`
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;text-align:center;">
+      ${[['💼 Personal',p],['🏦 Funded',f],['📊 Total',t]].map(([lbl,pnl])=>`
+      <div style="background:var(--surface2);border:1px solid var(--border2);border-radius:12px;padding:16px;">
+        <div style="font-size:0.7rem;color:var(--text3);margin-bottom:8px;font-weight:700;">${lbl}</div>
+        <div style="font-size:1.1rem;font-weight:900;font-family:var(--mono);color:${pc(pnl.usd)};">${ps(pnl.usd)}${pnl.usd.toFixed(2)} $</div>
+        <div style="font-size:0.82rem;font-family:var(--mono);color:${pc(pnl.inr)};margin-top:2px;">${ps(pnl.inr)}${pnl.inr.toFixed(0)} ₹</div>
+      </div>`).join('')}
+    </div>
+    <div style="margin-top:10px;font-size:0.73rem;color:var(--text3);text-align:center;">${MONTHS[now.getMonth()]} — ${all.length} entries</div>`;
+}
+
+// ================================================================
+//  PAGE 6 — TRADE RULES
+// ================================================================
+function renderTradeRulesPage() { renderTRCalendar(); renderTRChecklist(); renderTRManage(); }
+
+function renderTRCalendar() {
+  buildCal('trCal','trCalTitle','tr','selTRDate',(ds)=>{
+    const rules=DB.get('trRules',[]);
+    const checks=DB.get('trChecks',{});
+    const dc=checks[ds]||[];
+    if(!rules.length) return {};
+    const pct=Math.round((dc.length/rules.length)*100);
+    if(!pct) return {};
+    return {badge:`${pct}%`,badgeCls:pct>=80?'badge-green':pct>=50?'badge-yellow':'badge-red',cls:'has-data'};
+  });
+}
+
+function selTRDate(ds) {
+  selDates.tr=ds;
+  document.getElementById('trDateLbl').textContent=ds===today()?'Today\'s':fmtShort(ds);
+  renderTRCalendar(); renderTRChecklist();
+}
+
+function renderTRChecklist() {
+  const rules=DB.get('trRules',[]);
+  const checks=DB.get('trChecks',{});
+  const dc=checks[selDates.tr]||[];
+  const el=document.getElementById('trCheckList');
+  if(!rules.length){el.innerHTML=`<div class="empty"><div class="empty-icon">📋</div><p>Add your trading rules!</p></div>`;return;}
+  el.innerHTML=rules.map(r=>{
+    const done=dc.includes(r.id);
+    return `<div class="check-item ${done?'done':''}">
+      <div class="check-box" onclick="toggleTR('${r.id}')">${done?'✓':''}</div>
+      <span class="check-label">${r.name}</span>
+    </div>`;
+  }).join('');
+  const pct=Math.round((dc.length/rules.length)*100);
+  document.getElementById('trProg').innerHTML=`
+    <div class="prog-row"><span>${dc.length}/${rules.length} followed</span><span>${pct}%</span></div>
+    <div class="prog-bar"><div class="prog-fill" style="width:${pct}%"></div></div>`;
+}
+
+function toggleTR(id) {
+  const checks=DB.get('trChecks',{});
+  if(!checks[selDates.tr]) checks[selDates.tr]=[];
+  const i=checks[selDates.tr].indexOf(id);
+  if(i>-1) checks[selDates.tr].splice(i,1); else checks[selDates.tr].push(id);
+  DB.set('trChecks',checks);
+  renderTRChecklist(); renderTRCalendar();
+}
+
+function renderTRManage() {
+  const rules=DB.get('trRules',[]);
+  const el=document.getElementById('trManage');
+  if(!rules.length){el.innerHTML=`<div class="empty"><div class="empty-icon">📋</div><p>Add your first rule!</p></div>`;return;}
+  el.innerHTML=rules.map(r=>`
+    <div class="manage-item">
+      <span class="manage-item-name">📌 ${r.name}</span>
+      <button class="btn btn-ghost btn-sm" onclick="openEditRule('${r.id}')">Edit</button>
+      <button class="btn btn-danger btn-sm" onclick="delRule('${r.id}')">Remove</button>
+    </div>`).join('');
+}
+
+function addTradeRule() {
+  const n=document.getElementById('mTR-name').value.trim();
+  if(!n) return;
+  const rules=DB.get('trRules',[]);
+  rules.push({id:uid(),name:n});
+  DB.set('trRules',rules);
+  document.getElementById('mTR-name').value='';
+  closeM('mAddRule');
+  renderTRManage(); renderTRChecklist();
+}
+
+function openEditRule(id) {
+  const r=DB.get('trRules',[]).find(x=>x.id===id);
+  if(!r) return;
+  document.getElementById('mETR-id').value=id;
+  document.getElementById('mETR-name').value=r.name;
+  openM('mEditRule');
+}
+
+function saveEditRule() {
+  const id=document.getElementById('mETR-id').value;
+  const n=document.getElementById('mETR-name').value.trim();
+  if(!n) return;
+  const rules=DB.get('trRules',[]);
+  const i=rules.findIndex(x=>x.id===id);
+  if(i>-1) rules[i]={...rules[i],name:n};
+  DB.set('trRules',rules);
+  closeM('mEditRule');
+  renderTRManage(); renderTRChecklist();
+}
+
+function delRule(id) {
+  if(!confirm('Remove this rule?')) return;
+  DB.set('trRules',DB.get('trRules',[]).filter(x=>x.id!==id));
+  renderTRManage(); renderTRChecklist(); renderTRCalendar();
+}
+
+// ================================================================
+//  PAGE 7 — JOURNAL
+// ================================================================
+function renderJournalPage() { loadJournal(); renderJEntries(); }
+
+function loadJournal() {
+  const d=document.getElementById('jDate').value||today();
+  const e=DB.get('journalEntries',{})[d]||{};
+  document.getElementById('j-new').value=e.jnew||'';
+  document.getElementById('j-overall').value=e.overall||'';
+  document.getElementById('j-work').value=e.work||'';
+  document.getElementById('j-mood').value=e.mood||'';
+  document.getElementById('j-moodNote').value=e.moodNote||'';
+  document.getElementById('j-trade').value=e.trade||'';
+  document.getElementById('j-routine').value=e.routine||'';
+  document.getElementById('j-thoughts').value=e.thoughts||'';
+  document.querySelectorAll('.mood-btn').forEach(b=>b.classList.remove('selected'));
+  if(e.mood) document.querySelectorAll('.mood-btn').forEach(b=>{if(b.textContent===e.mood) b.classList.add('selected');});
+}
+
+function setMood(m,el) {
+  document.getElementById('j-mood').value=m;
+  document.querySelectorAll('.mood-btn').forEach(b=>b.classList.remove('selected'));
+  el.classList.add('selected');
+}
+
+function saveJournal() {
+  const d=document.getElementById('jDate').value||today();
+  const entries=DB.get('journalEntries',{});
+  entries[d]={
+    jnew:document.getElementById('j-new').value,
+    overall:document.getElementById('j-overall').value,
+    work:document.getElementById('j-work').value,
+    mood:document.getElementById('j-mood').value,
+    moodNote:document.getElementById('j-moodNote').value,
+    trade:document.getElementById('j-trade').value,
+    routine:document.getElementById('j-routine').value,
+    thoughts:document.getElementById('j-thoughts').value,
+    ts:new Date().toISOString()
+  };
+  DB.set('journalEntries',entries);
+  renderJEntries();
+  const btn=event.target;
+  btn.textContent='Saved ✓';
+  setTimeout(()=>btn.textContent='Save ✓',1600);
+}
+
+function renderJEntries() {
+  const entries=Object.entries(DB.get('journalEntries',{})).sort((a,b)=>b[0].localeCompare(a[0])).slice(0,12);
+  const el=document.getElementById('jEntries');
+  if(!entries.length){el.innerHTML=`<div class="empty"><div class="empty-icon">📓</div><p>Write your first entry!</p></div>`;return;}
+  el.innerHTML=entries.map(([d,e])=>{
+    const preview=[e.overall,e.jnew,e.moodNote,e.thoughts].filter(Boolean).join(' ').slice(0,110);
+    return `<div class="journal-entry-card" onclick="loadJournalByDate('${d}')">
+      <div class="jec-date">${fmtD(d)} ${e.mood?`<span>${e.mood}</span>`:''}</div>
+      <div class="jec-preview">${preview||'No content'}${preview.length>=110?'...':''}</div>
+    </div>`;
+  }).join('');
+}
+
+function loadJournalByDate(d) {
+  document.getElementById('jDate').value=d;
+  loadJournal();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+// ================================================================
+//  PAGE 8 — IMPORTANT DATES
+// ================================================================
+function renderDatesPage() {
+  const dates=DB.get('impDates',[]).sort((a,b)=>a.date.localeCompare(b.date));
+  const tbody=document.getElementById('datesTable');
+  const empty=document.getElementById('datesEmpty');
+  const catIcons={personal:'👤',health:'💪',finance:'💰',work:'💼',event:'🎉',deadline:'⚠️'};
+  if(!dates.length){tbody.innerHTML='';empty.style.display='block';return;}
+  empty.style.display='none';
+  const now=new Date(); now.setHours(0,0,0,0);
+  tbody.innerHTML=dates.map(d=>{
+    const td=new Date(d.date+'T00:00:00');
+    const diff=Math.ceil((td-now)/(86400000));
+    let cs,ct;
+    if(diff<0){ct=`${Math.abs(diff)}d ago`;cs='background:rgba(244,63,94,0.1);color:var(--red)';}
+    else if(diff===0){ct='Today!';cs='background:rgba(251,191,36,0.15);color:var(--yellow)';}
+    else if(diff<=7){ct=`${diff}d left`;cs='background:rgba(251,191,36,0.1);color:var(--yellow)';}
+    else{ct=`${diff}d left`;cs='background:rgba(14,165,233,0.1);color:var(--teal)';}
+    return `<tr>
+      <td style="font-weight:600;">${catIcons[d.cat]||'📌'} ${d.name}</td>
+      <td style="font-family:var(--mono);font-size:0.78rem;">${fmtD(d.date)}</td>
+      <td><span class="tag tag-teal" style="font-size:0.65rem;">${d.cat}</span></td>
+      <td><span class="cd-badge" style="${cs}">${ct}</span></td>
+      <td style="color:var(--text3);font-size:0.8rem;">${d.notes||'—'}</td>
+      <td style="display:flex;gap:4px;">
+        <button class="btn btn-ghost btn-sm" onclick="openEditDate('${d.id}')">Edit</button>
+        <button class="btn btn-danger btn-sm" onclick="delDate('${d.id}')">×</button>
+      </td>
+    </tr>`;
+  }).join('');
+}
+
+function addDate() {
+  const n=document.getElementById('mD-name').value.trim();
+  const d=document.getElementById('mD-date').value;
+  if(!n||!d) return;
+  const dates=DB.get('impDates',[]);
+  dates.push({id:uid(),name:n,date:d,cat:document.getElementById('mD-cat').value,notes:document.getElementById('mD-notes').value});
+  DB.set('impDates',dates);
+  ['mD-name','mD-notes'].forEach(id=>document.getElementById(id).value='');
+  closeM('mAddDate');
+  renderDatesPage();
+}
+
+function openEditDate(id) {
+  const d=DB.get('impDates',[]).find(x=>x.id===id);
+  if(!d) return;
+  document.getElementById('mED-id').value=id;
+  document.getElementById('mED-name').value=d.name;
+  document.getElementById('mED-date').value=d.date;
+  document.getElementById('mED-cat').value=d.cat;
+  document.getElementById('mED-notes').value=d.notes||'';
+  openM('mEditDate');
+}
+
+function saveEditDate() {
+  const id=document.getElementById('mED-id').value;
+  const n=document.getElementById('mED-name').value.trim();
+  const d=document.getElementById('mED-date').value;
+  if(!n||!d) return;
+  const dates=DB.get('impDates',[]);
+  const i=dates.findIndex(x=>x.id===id);
+  if(i>-1) dates[i]={...dates[i],name:n,date:d,cat:document.getElementById('mED-cat').value,notes:document.getElementById('mED-notes').value};
+  DB.set('impDates',dates);
+  closeM('mEditDate');
+  renderDatesPage();
+}
+
+function delDate(id) {
+  if(!confirm('Remove this date?')) return;
+  DB.set('impDates',DB.get('impDates',[]).filter(x=>x.id!==id));
+  renderDatesPage();
+}
+
+// ================================================================
+//  PAGE 9 — CONSISTENCY
+// ================================================================
+function renderConsistencyPage() {
+  renderConStats();
+  renderHeatmap();
+  drawBigChart();
+}
+
+function renderConStats() {
+  const now=new Date();
+  const mk=`${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}`;
+  const days=now.getDate();
+  // Routine
+  const rItems=DB.get('routineItems',[]); const rChecks=DB.get('routineChecks',{});
+  const rDays=Object.keys(rChecks).filter(k=>k.startsWith(mk));
+  const rAvg=rDays.length&&rItems.length?Math.round(rDays.reduce((a,d)=>a+(rChecks[d].length/rItems.length),0)/rDays.length*100):0;
+  // Gym
+  const gE=DB.get('gymEntries',{});
+  const gDays=Object.entries(gE).filter(([k])=>k.startsWith(mk));
+  const gGo=gDays.filter(([,v])=>v.went==='yes'||v.went==='home').length;
+  const gPct=Math.round((gGo/days)*100);
+  // Food
+  const fE=DB.get('foodEntries',{});
+  const fDays=Object.entries(fE).filter(([k])=>k.startsWith(mk));
+  const fClean=fDays.filter(([,v])=>!v.flags||!v.flags.length).length;
+  const fPct=fDays.length?Math.round((fClean/fDays.length)*100):0;
+  // Trade rules
+  const trR=DB.get('trRules',[]); const trC=DB.get('trChecks',{});
+  const trDays=Object.keys(trC).filter(k=>k.startsWith(mk));
+  const trAvg=trDays.length&&trR.length?Math.round(trDays.reduce((a,d)=>a+(trC[d].length/trR.length),0)/trDays.length*100):0;
+  const overall=Math.round((rAvg+gPct+fPct+trAvg)/4);
+  const sc=(v,t1=80,t2=50)=>v>=t1?'var(--green)':v>=t2?'var(--yellow)':'var(--red)';
+  document.getElementById('conStats').innerHTML=`
+    ${[
+      ['📋 Routine','Avg adherence',rAvg],
+      ['🏋️ Gym Frequency',`${gGo} days this month`,gPct],
+      ['🥗 Clean Eating',`${fClean}/${fDays.length} days`,fPct],
+      ['📈 Trade Rules','Avg adherence',trAvg],
+      ['⚖️ Body Weight',DB.get('gymEntries',{})[today()]?.bw?DB.get('gymEntries',{})[today()].bw+' kg':'Not logged',null],
+    ].map(([lbl,sub,val])=>`
+    <div class="stat-card">
+      <div class="stat-lbl">${lbl}</div>
+      ${val!==null?`<div class="stat-val" style="color:${sc(val)};">${val}%</div>
+      <div class="prog-bar" style="margin-top:8px;"><div class="prog-fill" style="width:${val}%"></div></div>`
+      :`<div class="stat-val" style="font-size:1.2rem;">${sub}</div>`}
+      <div class="stat-sub">${val!==null?sub:''}</div>
+    </div>`).join('')}
+    <div class="stat-card" style="background:linear-gradient(135deg,var(--surface),var(--surface2));border-color:rgba(14,165,233,0.25);">
+      <div class="stat-lbl">🎯 Overall Score</div>
+      <div class="stat-val" style="font-size:2.8rem;">${overall}%</div>
+      <div class="prog-bar" style="margin-top:8px;"><div class="prog-fill" style="width:${overall}%"></div></div>
+      <div class="stat-sub">${overall>=80?'🔥 Crushing it!':overall>=60?'💪 Good progress!':overall>=40?'📈 Keep pushing!':'⚠️ Time to lock in!'}</div>
+    </div>`;
+}
+
+function renderHeatmap() {
+  const rItems=DB.get('routineItems',[]); const rChecks=DB.get('routineChecks',{});
+  const gE=DB.get('gymEntries',{}); const fE=DB.get('foodEntries',{});
+  const sItems=DB.get('skinItems',[]); const sChecks=DB.get('skinChecks',{});
+  let html='';
+  for(let i=29;i>=0;i--){
+    const d=new Date(); d.setDate(d.getDate()-i);
+    const k=d.toISOString().split('T')[0];
+    let score=0,count=0;
+    if(rItems.length){score+=(rChecks[k]||[]).length/rItems.length;count++;}
+    const ge=gE[k];
+    if(ge){score+=ge.went==='yes'||ge.went==='home'?1:0;count++;}
+    const fe=fE[k];
+    if(fe&&(fe.bf||fe.lu||fe.di)){score+=(fe.flags&&fe.flags.length)?0.3:1;count++;}
+    if(sItems.length){score+=(sChecks[k]||[]).length/sItems.length;count++;}
+    const avg=count?score/count:0;
+    const a=avg<0.2?0:avg<0.5?0.25:avg<0.8?0.55:1;
+    const dt=d.toLocaleDateString('en-IN',{day:'numeric',month:'short'});
+    html+=`<div class="hm-cell" title="${dt}: ${Math.round(avg*100)}%" style="background:rgba(14,165,233,${a});"></div>`;
+  }
+  document.getElementById('hmGrid').innerHTML=html;
+}
+
+function drawBigChart() {
+  const entries=DB.get('gymEntries',{});
+  const allDates=Object.keys(entries).filter(k=>entries[k].bw).sort();
+  if(allDates.length<2){
+    const canvas=document.getElementById('wtBig');
+    if(!canvas) return;
+    const ctx=canvas.getContext('2d');
+    const W=canvas.offsetWidth||600;
+    canvas.width=W; canvas.height=90;
+    ctx.fillStyle='#475569'; ctx.font='13px Nunito Sans'; ctx.textAlign='center';
+    ctx.fillText('Log body weight in Gym tracker to see all-time trend',W/2,45); return;
+  }
+  const data=allDates.map(k=>({label:fmtShort(k),w:parseFloat(entries[k].bw)}));
+  drawChart('wtBig',data,90);
+}
+
+// ================================================================
+//  KEYBOARD SHORTCUTS
+// ================================================================
+document.addEventListener('keydown',e=>{
+  if((e.ctrlKey||e.metaKey)&&e.key==='s'){
+    e.preventDefault();
+    if(document.getElementById('page-journal').classList.contains('active')) saveJournal();
+  }
+});
+</script>
+</body>
+</html>
